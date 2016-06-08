@@ -124,6 +124,7 @@ delattr(emp1, 'age')       //删除属性‘age’
 - `__bases__`: 类的所有父类构成元素(包含了以个由所有父类组成的元组)
 
 python内置类属性调用实例如下
+
 ```python
 #!/usr/bin/python
 # -*- coding: UTF-8 -×-
@@ -172,7 +173,8 @@ c[0] = -1       //减少引用，<40>的计数
 垃圾回收机制不仅针对引用计数为0的对象，同样也可以处理循环引用的情况。循环引用指的是，两个对象相互引用，但是没有其他变量引用他们。这种情况下，仅使用引用计数是不够的。Python 的垃圾收集器实际上是一个引用计数器和一个循环垃圾收集器。作为引用计数的补充， 垃圾收集器也会留心被分配的总量很大（及未通过引用计数销毁的那些）的对象。 在这种情况下， 解释器会暂停下来， 试图清理所有未引用的循环。
 
 - 实例
-析构函数`__del__`,`__del__`在对象销毁的时候被调用，当对象不在被使用时，`__del__`运行
+  析构函数`__del__`,`__del__`在对象销毁的时候被调用，当对象不在被使用时，`__del__`运行
+
 ```
 #!/usr/bin/python
 # -*- coding: UTF-8 -×-
@@ -215,6 +217,7 @@ class SubClassName (ParentClass1[, ParentClass2, ....])
   'Optional class documentation string'
   class_suite
 ```
+
 ```
 #!/usr/bin/python env
 # -*- coding: UTF-8 -×-
@@ -275,3 +278,111 @@ c.myMethod()
 //输出
 调用子类方法
 ```
+
+## 基础重载方法
+
+下表列出了一些通用的功能，你可以在自己的类重写：
+
+| 序号   | 方法, 描述 & 简单的调用                           |
+| ---- | ---------------------------------------- |
+| 1    | ``__init__ ( self [,args...] )``构造函数简单的调用方法: *obj = className(args)* |
+| 2    | ``__del__( self )``析构方法, 删除一个对象简单的调用方法 : *dell obj* |
+| 3    | ``__repr__( self )``转化为供解释器读取的形式简单的调用方法 : *repr(obj)* |
+| 4    | ``__str__( self )``用于将值转化为适于人阅读的形式简单的调用方法 : *str(obj)* |
+| 5    | ``__cmp__ ( self, x )``对象比较简单的调用方法 : *cmp(obj, x)* |
+
+------
+
+## 运算符重载
+
+Python同样支持运算符重载，实例如下：
+
+```
+#!/usr/bin/python
+
+class Vector:
+   def __init__(self, a, b):
+      self.a = a
+      self.b = b
+
+   def __str__(self):
+      return 'Vector (%d, %d)' % (self.a, self.b)
+   
+   def __add__(self,other):
+      return Vector(self.a + other.a, self.b + other.b)
+
+v1 = Vector(2,10)
+v2 = Vector(5,-2)
+print v1 + v2
+```
+
+以上代码执行结果如下所示:
+
+```
+Vector(7,8)
+```
+
+## 类属性与方法
+
+### 类的私有属性
+
+**__private_attrs**：两个下划线开头，声明该属性为私有，不能在类地外部被使用或直接访问。在类内部的方法中使用时**self.__private_attrs**。
+
+### 类的方法
+
+在类地内部，使用def关键字可以为类定义一个方法，与一般函数定义不同，类方法必须包含参数self,且为第一个参数
+
+### 类的私有方法
+
+**__private_method**：两个下划线开头，声明该方法为私有方法，不能在类地外部调用。在类的内部调用 **self.__private_methods**
+
+### 实例
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+class JustCounter:
+	__secretCount = 0  # 私有变量
+	publicCount = 0    # 公开变量
+
+	def count(self):
+		self.__secretCount += 1
+		self.publicCount += 1
+		print self.__secretCount
+
+counter = JustCounter()
+counter.count()
+counter.count()
+print counter.publicCount
+print counter.__secretCount  # 报错，实例不能访问私有变量
+```
+
+Python 通过改变名称来包含类名:
+
+```
+1
+2
+2
+Traceback (most recent call last):
+  File "test.py", line 17, in <module>
+    print counter.__secretCount  # 报错，实例不能访问私有变量
+AttributeError: JustCounter instance has no attribute '__secretCount'
+```
+
+Python不允许实例化的类访问私有数据，但你可以使用 **object._className__attrName** 访问属性，将如下代码替换以上代码的最后一行代码：
+
+```
+.........................
+print counter._JustCounter__secretCount
+```
+
+执行以上代码，执行结果如下：
+
+```
+1
+2
+2
+2
+```
+
