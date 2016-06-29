@@ -108,13 +108,13 @@ def refresh_window(total_before, total_after, pnic_before, pnic_after, cpu_state
             )
         print " "
 
-if __name__ == '__main__'
+if __name__ == '__main__':
 
-try:
-    interval=0
-    while True:
-        args = poll(interval)
-        refresh_window(*args)
-        interval=1
-except (KeyboardInterrupt, SystemExit):
+    try:
+        interval=0
+        while True:
+            args = poll(interval)
+            refresh_window(*args)
+            interval=1
+    except (KeyboardInterrupt, SystemExit):
             pass
