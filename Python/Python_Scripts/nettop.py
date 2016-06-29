@@ -74,7 +74,7 @@ def refresh_window(total_before, total_after, pnic_before, pnic_after, cpu_state
         os.system("clear")
 
     # print currnet time
-    print (time.asctime() + " | " + cpu_state + " | " + memory_state)
+    print  time.asctime() + " | " + cpu_state + " | " + memory_state
 
     # totals
     print 'NetStates:'
