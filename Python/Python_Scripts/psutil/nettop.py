@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: UTF-8
-
+'get system info  and network info'
 import sys
 import os
 import atexit

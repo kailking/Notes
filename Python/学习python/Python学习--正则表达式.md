@@ -14,7 +14,7 @@
 >>> re.match('\\\\',s)                                   \\ 匹配模式
 <_sre.SRE_Match object at 0x7f160df5c988>
 >>> re.match(r'\\',s)                                    \\匹配模式
-<_sre.SRE_Match object at 0x7f160df5c9f0> 
+<_sre.SRE_Match object at 0x7f160df5c9f0>
 >>> re.match('\\',s)                                     \\ 不可以这样匹配
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -29,11 +29,11 @@ sre_constants.error: bogus escape (end of line)
 
 ## 正则表达式语法
 
-正则表达式(RE)指定一个与之匹配的字符合集； 
+正则表达式(RE)指定一个与之匹配的字符合集；
 
-正则表达式可以被连接，从而形成新的正则表达式；例如A和B都是正则表达式，那么AB也是正则表达式。一般地，如果字符串*p*与A匹配，*q*与B匹配的话，那么字符串*pq*也会与AB匹配，但A或者B里含有边界限定条件或者命名组操作的情况除外。也就是说，复杂的正则表达式可以用简单的连接而成。
+正则表达式可以被连接，从而形成新的正则表达式；例如A和B都是正则表达式，那么AB也是正则表达式。一般地，如果字符串p与A匹配，q与B匹配的话，那么字符串pq也会与AB匹配，但A或者B里含有边界限定条件或者命名组操作的情况除外。也就是说，复杂的正则表达式可以用简单的连接而成。
 
-正则表达式可以被连接，从而形成新的正则表达式；例如A和B都是正则表达式，那么AB也是正则表达式。一般地，如果字符串*p*与A匹配，*q*与B匹配的话，那么字符串*pq*也会与AB匹配，但A或者B里含有边界限定条件或者命名组操作的情况除外。也就是说，复杂的正则表达式可以用简单的连接而成。
+正则表达式可以被连接，从而形成新的正则表达式；例如A和B都是正则表达式，那么AB也是正则表达式。一般地，如果字符串*p*与A匹配，q与B匹配的话，那么字符串pq也会与AB匹配，但A或者B里含有边界限定条件或者命名组操作的情况除外。也就是说，复杂的正则表达式可以用简单的连接而成。
 正则表达式可以包含特殊字符和普通字符，大部分字符比如`'A'`，`'a'`和`'0'`都是普通字符，如果做为正则表达式，它们将匹配它们本身。由于正则表达式可以连接，所以连接多个普通字符而成的正则表达式`last`也将匹配`'last'`。（后面将用不带引号的表示正则表达式，带引号的表示字符串）
 
 下面就来介绍正则表达式的特殊字符：
@@ -178,12 +178,12 @@ re.match(pattern, string, flags=0)
 import re               
 // 方法1                        
 str = 'Hello , my name is Charlie!'
-p = re.compile('Hello') 
+p = re.compile('Hello')
 match = p.match(str)    
 print match.group()     
 
 //方法2
-p = re.compile('Hello') 
+p = re.compile('Hello')
 m=p.match(str)          
 print m.group()         
 
@@ -288,7 +288,7 @@ matchObj = re.search(r'dogs',line , re.M|re.I)
 if matchObj:       
     print  "Match --> match.Obj.group(): ",matchObj.group()
 else:              
-    print 'No match' 
+    print 'No match'
 
 //输出
 No match
@@ -379,7 +379,7 @@ split不会被零长度的正则所分割：
 ```python
 >>> for m in re.finditer('\w+','Hello World'):
 ...     print m.group()
-... 
+...
 Hello
 World
 ```
@@ -574,7 +574,7 @@ email[:m.start()] + email[m.end():]
 'tony@tiger.net'
 span([group])
 ```
-返回一个元组： (m.start(group), m.end(group)) 
+返回一个元组： (m.start(group), m.end(group))
 - pos就是传给RE对象的search()或match()方法的参数pos，代表RE开始搜索字符串的位置。
 
 
@@ -687,4 +687,3 @@ span([group])
 | \S   | 匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。            |
 | \w   | 匹配包括下划线的任何单词字符。等价于'[A-Za-z0-9_]'。        |
 | \W   | 匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'。           |
-
