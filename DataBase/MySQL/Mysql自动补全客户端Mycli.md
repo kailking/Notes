@@ -105,4 +105,3 @@ _pager_
 ![](http://www.zerounix.com/images/database/mysql/pager.png)
 
 **动态效果图如下：**
-
