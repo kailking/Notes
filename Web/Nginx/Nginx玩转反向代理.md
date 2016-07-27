@@ -1,21 +1,21 @@
 
-## 反向代理 ##
+# 反向代理 
 
-### 初识反向代理 ###
+## 初识反向代理 
 反向代理(Reverse Proxy)是指以代理服务器来接受Internet的连接请求，然后将请求转发给内部服务器，并将从服务器得到的结构返回给Internet请求客户端，喜事的代理服务器对外表现为一个反向代理服务器。
 
 ![Reverse_Proxy](http://www.zerounix.com/images/web/nginx/Reverse_Proxy.png "反向代理示意图")
 
-### 反向代理作用 ###
+## 反向代理作用 ###
 
 * 保护网站安全 -- 任何来自Internet的请求都必须先经过代理服务器
 * 通过配置缓存功能加速Web请求 -- 可以缓存后端Web服务器的某些静态资源，减轻Web服务器的负载
 * 实现负载均衡 -- 充当负载均衡服务器均衡的分发请求，平衡集群中各个服务器的负载压力
 
-## 安装 Nginx ##
-安装过程参考nginx+php-fpm这篇文章的安装过程
+# 安装 Nginx 
+安装过程参考nginx源码安装
 
-## 配置反向代理 ##
+## 配置反向代理 
 简单的反向代理就是http，不需要缓存控制等高级功能，仅仅一个简单的代理，比如nginx+php-fpm也是一种反向代理
 
 ```
@@ -25,9 +25,10 @@ location ~ .*\.(php|php5)$ {
    try_files $uri =404;
 }
 ```
+
 而相对复杂一些的就是反向代理一些网站，会应用到缓存控制机制。
 
-### 简单反向代理  ###
+## 简单反向代理  ###
 
 * 在nginx.conf配置文件中的http块中添加下面内容
 
@@ -108,7 +109,7 @@ server {
 
 ```
 
-### 使用SSL的反向代理  ###
+## 使用SSL的反向代理  ###
 
 * 安装nginx
 
@@ -196,3 +197,83 @@ server
 8 proxy_set_header Accept-Language "zh-CN";设置语言为中文
 9 proxy_set_header Cookie "PREF=ID=047808f19f6de346:U=0f62f33dd8549d11:FF=2:LD=zh-CN:NW=1:TM=1325338577:LM=1332142444:GM=1:SG=2:S=rE0SyJh2w1IQ-Maw"; 这行很关键，传固定的cookie给谷歌，是为了禁止即时搜索，因为开启即时搜索无法替换内容。还有设置为新窗口打开网站，这个符合我们打开链接的习惯
 10 sub_filter www.google.com proxy.zerounix.com当然是把谷歌的域名替换成我们的了，注意需要安装nginx的sub_filter模块(编译加上--with-http_sub_module参数)
+
+## 反向代理配置范例
+```
+cat nginx.conf
+user  daemon;
+worker_processes  8;  
+worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 1000000;
+worker_rlimit_nofile 65535;
+
+error_log  logs/error.log  notice;
+pid        logs/nginx.pid;
+
+events {
+    use epoll;
+    worker_connections  10240;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    server_names_hash_bucket_size 128;
+    client_header_buffer_size 32k;
+    client_body_buffer_size 32k;
+    client_max_body_size 8m;
+    large_client_header_buffers 4 32k;
+    log_format access  '$http_host $remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent"';
+
+    autoindex off;
+    fastcgi_intercept_errors on;
+    access_log  logs/access.log  access;
+    sendfile        on;
+    tcp_nopush     on;
+    tcp_nodelay    off;
+    keepalive_timeout  65;
+
+    gzip  on;
+    gzip_min_length 1k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_buffers  4 16k;
+    gzip_proxied any;
+    gzip_disable "MSIE [1-6]\.";
+    gzip_types  text/plain text/css application/x-javascript application/xml application/xml+rss text/javascript;
+    gzip_vary on;
+    server_name_in_redirect off;
+
+    proxy_connect_timeout 5;                       
+    proxy_send_timeout 60;
+    proxy_read_timeout 5;                         
+    proxy_buffer_size 32k;                       
+    proxy_buffers 4 64k;                        
+    proxy_busy_buffers_size 128k;                   
+    proxy_temp_file_write_size 128k;                  
+    proxy_ignore_client_abort on;              
+    proxy_headers_hash_max_size 51200;
+    proxy_headers_hash_bucket_size 6400;
+    proxy_temp_path   /cache/proxy_temp 1 2;
+    proxy_cache_path  /cache/proxy_cache levels=1:2 keys_zone=cache_one:200m inactive=1d max_size=10g;
+
+    proxy_set_header  Host		$host;
+    proxy_set_header  X-Real-IP 	$remote_addr;
+    proxy_set_header  x-forwarded-for	$proxy_add_x_forwarded_for;
+
+    server {
+        listen	80;
+	      server_name	api.zerounix.com;
+	      charset utf-8;
+	      index index.html;
+	      root /usr/local/nginx/html;
+	      access_log  logs/api.zerounix.com_access.log combined;
+        error_log   logs/api.zerounix.com_error.log;
+	      location / {
+		        proxy_pass	http://118.2.154.72:6080;
+	      }
+     }
+}
+
+```

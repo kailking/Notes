@@ -160,9 +160,9 @@ server {
         }
         
         #对 "/" 启用反向代理
-     	location / {
-  proxy_pass	http://18.26.154.72:8090;
+     	  location / {
+          proxy_pass	http://18.26.154.72:8090;
           proxy_redirect off;
-    }
+        }
 }
 ```

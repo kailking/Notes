@@ -33,14 +33,23 @@ VRRP全称 Virtual Router Redundancy Protocol，即 虚拟路由冗余协议。�
 
 |用途|ip|备注|
 |---|----|
+|CMDB-DB-M|172.16.8.140|Ubuntu-16.04 LTS|
+|CMDB-DB-S|172.16.8.144|Ubuntu-16.04 LTS|
+|CMDB-Calc|172.16.8.244|Ubuntu-16.04 LTS|
+|Gjobs-DB-M|172.16.8.158|Ubuntu-16.04 LTS|
+|Gjobs-DB-S|172.16.8.169|Ubuntu-16.04 LTS|
+|Gjob-Ansible|172.16.8.176|Ubuntu-16.04 LTS|
+|Greports-DB-M|172.16.8.164|Ubuntu-16.04 LTS|
+|Greports-DB-S|172.16.8.197|Ubuntu-16.04 LTS|
+|Greports-Calc|172.16.8.204|Ubuntu-16.04 LTS|
 |Nginx-PHP-M/B|172.16.8.156|Ubuntu-16.04 LTS|
 |Nginx-PHP-B/M|172.16.8.178|Ubuntu-16.04 LTS|
 |Nginx-Django-M/B|172.16.8.180|Ubuntu-16.04 LTS|
-|Nginx-Django-B/M|172.16.8.181|Ubuntu-16.04 LTS|
-|VIP|172.16.8.208|绑定到Nginx-PHP-M/B|
+|Nginx-Django-B/M|172.16.8.243|Ubuntu-16.04 LTS|
 |VIP|172.16.8.209|绑定到Nginx-PHP-M/B|
-|VIP|172.16.8.210|绑定到Nginx-Django-M/B|
-|VIP|172.16.8.211|绑定到Nginx-Django-M/B|
+|VIP|172.16.8.208|绑定到Nginx-PHP-B/m|
+|VIP|172.16.8.212|绑定到Nginx-Django-M/B|
+|VIP|172.16.8.225|绑定到Nginx-Django-B/M|
 
 
 ## 安装keepalived

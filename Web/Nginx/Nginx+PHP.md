@@ -248,6 +248,7 @@ var_export($_SERVER)
 ```
 
 ### 测试访问 ###
+
 ```
 curl -x 172.16.11.210:80 www.zerounix.com/phpinfo.php
 array (
