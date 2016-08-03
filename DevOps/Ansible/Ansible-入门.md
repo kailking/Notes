@@ -1,0 +1,327 @@
+# 什么是 Ansible
+Ansible 是基于 python 的配置管理和应用部署工具。官方给的 title是 "Ansible is Simple IT Automation" ---简单的自动化IT工具。
+## 架构图
+
+![ansible架构图](http://charlie127.github.io/images/devops/ansible/ansible.png "ansible架构图")
+
+## 工作原理
+
+![工作原理](http://charlie127.github.io/images/devops/ansible/ansible-work.png "ansible工作原理")
+
+
+- 管理端支持 local、 ssh、zeromq 三种方式连接被控端，默认使用 ssh
+- 可以按照一定规则进行 inventory，管理节点通过模块实现对应操作--ad-hoc
+- 管理节点可以通过 playbook 实现对多个 task 的集合实现一类功能
+
+# 安装 Ansible
+
+- 源码安装
+
+源码安装需要 python2.6 以上版本，依赖 paramiko， PyYAML， Jinja2， simplejsion、 pycrypto模块，可以通过 pip 来安装
+```
+// 获取源码
+git clone git://github.com/ansible/ansible.git --recursive   
+cd ./ansible
+
+// 设置环境变量
+source ./hacking/env-setup
+source ./hacking/env-setup.fish
+source ./hacking/env-setup -q
+
+// 安装 Python 依赖
+easy_install pip
+pip install paramiko PyYAML Jinja2 httplib2 six
+
+// 更新 Ansible
+git pull --rebase
+git submodule update --init --recursive
+
+// 设置inventory文件
+echo "127.0.0.1" > ~/ansible_hosts
+export ANSIBLE_HOSTS=~/ansible_hosts
+
+// 测试命令
+ansible all -m ping --ask-pass
+```
+
+- 常用 Linux　发行版
+
+```
+// CentOS、RHEL
+yum install ansible
+
+//Ubuntu、Debian
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible
+```
+
+- 通过 pip 安装最新版
+Ansible 可以通过  `pip` 安装,同时也会安装 paramiko、PyYAML、jinja2 等 Python 依赖库。
+
+```
+apt install python3-pip
+pip3 install ansible
+```
+
+#  运行 Ansible
+
+## 添加被控远程主机清单
+已经安装好了 Ansible ，先在就可以运行 Ansible 了。 首先要在 `/etc/ansible/hosts` 文件中加入一个或者多个远程 ip 或者 domain。
+
+```
+172.16.11.210
+172.16.11.211
+```
+
+## 配置基于 SSH key 方式 连接
+```
+// 主控端操作
+ssh-keygen -t rsa -q
+ssh-copy-id 172.16.11.210
+ssh-copy-id 172.16.11.211
+```
+
+## 运行 Ansible
+```
+ansible all -m ping
+172.16.11.210 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+172.16.11.211 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+```
+
+# 配置 inventory
+Ansible 可以同时操纵属于一个组的多台主机，主机和组的关系是通过 inventory 文件来配置即`/etc/ansible/hosts`。
+inventory可以通过 IP、Domain 来指定，未分组的机器要保留在 host 文件顶部，通过`[]` 来配置分组信息。
+
+## 主机与组
+
+- 简单分组
+
+```
+[web1]
+web210.example.com
+web211.example.com
+// 配置端口号
+[web2]
+172.16.11.210:8000
+172.16.11.211:8000
+```
+
+- 定义别名和端口
+
+```
+www ansible_ssh_port=1234 ansible_ssh_host=1872.16.11.211
+other1  ansible_connertion=ssh ansible_ssh_user = illlusion
+```
+
+- 执行主机范文，支持正则表达
+
+```
+[web_www]
+www[01:10].example.com
+db-[a:f].erample.com
+```
+
+## 变量
+
+- 主机变量
+
+分配变量给主机，这些变量可以在之后的 playbook 中使用
+```
+[web-www]
+www-a http_port=89 maxRequestsPerChild=808
+www-a http_port=303 maxRequestsPerChild=909
+```
+
+- 组的变量
+组也可以赋予变量，这样组成员将继承组变量
+
+```
+[web-www]
+www-a http_port=89 maxRequestsPerChild=808
+www-a http_port=303 maxRequestsPerChild=909
+
+[web-www:vars]
+ntp_server=ntp.example.com
+proxy=proxy.example.com
+```
+
+- 组嵌套
+可以把组作为另外一个组的子成员，已经分配变量给整个组使用。这些变量可以给 `/usr/bin/ansible-playbook` 使用，但是不能给 `/usr/bin/ansible` 使用
+
+```
+[group1]
+host1
+host2
+
+[group2]
+host3
+host4
+
+[group3:children]
+group1
+group2
+
+[group3:vars]
+some_server=foo.example.com
+halon_system_timeout=30
+self_destruct_countdown=60
+escape_pods=2
+```
+
+## 分文件定义 Host 和 group 变量
+在 inventory 文件中保存的所有变量并不是最佳方式，还可以保存在独立的文件中， 这些文件与 inventory 关联，要求使用 `YAML`语法。host 和 gourp 变量 要求存储在与 host 和 group 相同的目录名中
+```
+//假设有一个 host 为 foosball 主机，属于两个组，一个是 raleigh,另外一个是 webserver
+/etc/ansible/group_vars/raleigh
+/etc/ansible/group_vars/webservers
+/etc/ansible/host_vars/foosball
+
+// raleigh 组的变量
+ntp_server: acme.example.org
+database_server: storage.example.org
+```
+还可以在组变量目录下创建多个文件，设置不同类型的变量
+```
+/etc/ansible/group_vars/raleigh/db_settings
+/etc/ansible/group_vars/raleigh/cluster_settings
+```
+
+## inventory 参数说明
+```
+// 要连接的远程主机名.与你想要设定的主机的别名不同的话,可通过此变量设置.
+ansible_ssh_host
+
+// ssh 端口号.如果不使用默认,通过此变量设置.
+ansible_ssh_port
+
+// ssh 用户名
+ansible_ssh_user
+
+// ssh 密码(这种明文方式并不安全,强烈建议使用 --ask-pass 或 SSH 密钥)
+ansible_ssh_pass
+
+// sudo 密码(这种方式并不安全,强烈建议使用 --ask-sudo-pass)
+ansible_sudo_pass
+
+// sudo 命令路径(适用于1.8及以上版本)
+ansible_sudo_exe (new in version 1.8)
+
+// 与主机的连接类型.比如:local, ssh 或者 paramiko. Ansible 1.2 以前默认使用 paramiko.1.2 以后默认使用 'smart','smart' 方式会根据是否支持 ControlPersist, 来判断'ssh' 方式是否可行.
+ansible_connection
+
+// ssh 使用的私钥文件.适用于有多个密钥,而你不想使用 SSH 代理的情况.
+ansible_ssh_private_key_file
+
+// 目标系统的 shell 类型.默认情况下,命令的执行使用 'sh' 语法,可设置为 'csh' 或 'fish'.      
+ansible_shell_type
+
+// 目标主机的 python 路径.适用于的情况: 系统中有多个 Python, 或者命令路径不是"/usr/bin/python",比如  \*BSD, 或者 /usr/bin/python      
+ansible_python_interpreter
+```
+
+# Patterns
+在 ansible 中， patterns 是指如何确定有那些主机或组被管理，在 playbook 中，它是指对应主机应用特定的配置或执行特定进程。
+
+## ansible
+
+```
+// 语法
+ansible <pattern_goes_here> -m <module_name> -a <arguments>
+
+// 示例
+ansible webservers -m service -a "name=httpd state=restarted"
+```
+简单的说， pattern 是一个主机筛选器，支持正则匹配。
+
+- 所有主机
+
+```
+all
+*
+```
+
+- 特定主机，支持 ip 地址和主机名
+
+```
+web211
+172.16.11.211
+```
+
+- 主机组，可以指定特定组或多个组，多个组之间使用`:`分隔
+
+```
+web_server
+web_server:database_server
+```
+- 支持正则表达式和逻辑运算
+
+```
+web_server:!web211
+web_server:&db1
+web_server:database_server:&db1:!web211
+```
+
+## playbook
+在 playbook 中，通过使用 `-e`参数可以实现通过变量来确定 group
+
+```
+webservers:!{{excluded}}:&{{required}}
+
+// 通配符
+*.example.com
+*.com
+
+//通配符和正则同时
+one*.com:dbservers
+
+// 在 patterns 应用正则式时，使用 `~` 开头
+~(web|db).*\.example\.com
+
+// 索引和切片
+webservers[0]
+webservers[0-25]
+
+// 可以在使用 `--limit` 标记来添加排除条件
+ansible-playbook site.yml --limit datacenter2
+
+// 如果你想从文件读取 hosts,文件名以 @ 为前缀即可.
+ansible-playbook site.yml --limit @retry_hosts.txt
+```
+
+# 简单执行命令
+
+```
+ansible  all -m ping
+172.16.11.210 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+172.16.11.211 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+```
+
+可用该命令选项：
+  - -i：指定 inventory 文件，使用当前目录下的 hosts
+  - all：针对 hosts 定义的所有主机执行，这里也可以指定组名或模式
+  - -m：指定所用的模块，我们使用 Ansible 内置的 ping 模块来检查能否正常管理远端机器
+  - -u：指定远端机器的用户
+
+```
+// 查看远端主机 uptime，Ansible 默认使用 `command` 模块； -a 指定模块的参数
+ansible all -a 'uptime'
+172.16.11.210 | SUCCESS | rc=0 >>
+13:40:23 up 126 days,  2:19,  2 users,  load average: 0.00, 0.01, 0.05
+
+172.16.11.211 | SUCCESS | rc=0 >>
+13:40:23 up 126 days,  2:10,  2 users,  load average: 0.03, 0.06, 0.05
+```
