@@ -102,28 +102,23 @@ inventory可以通过 IP、Domain 来指定，未分组的机器要保留在 hos
 
 ## 主机与组
 
-- 简单分组
-
 ```
+// 简单分组
 [web1]
 web210.example.com
 web211.example.com
+
 // 配置端口号
 [web2]
 172.16.11.210:8000
 172.16.11.211:8000
-```
 
-- 定义别名和端口
-
-```
-www ansible_ssh_port=1234 ansible_ssh_host=1872.16.11.211
+// 定义别名和端口
+[web]
+www ansible_ssh_port=1234 ansible_ssh_host=1872.16.11.211  ansible_ssh_pass=passwd \\ 远程ip，ssh登陆用户、密码
 other1  ansible_connertion=ssh ansible_ssh_user = illlusion
-```
 
-- 执行主机范文，支持正则表达
-
-```
+//执行主机，支持正则表达
 [web_www]
 www[01:10].example.com
 db-[a:f].erample.com
@@ -131,19 +126,14 @@ db-[a:f].erample.com
 
 ## 变量
 
-- 主机变量
-
-分配变量给主机，这些变量可以在之后的 playbook 中使用
 ```
+// 主机变量，分配变量给主机，这些变量可以在之后的 playbook 中使用
 [web-www]
 www-a http_port=89 maxRequestsPerChild=808
 www-a http_port=303 maxRequestsPerChild=909
-```
 
-- 组的变量
-组也可以赋予变量，这样组成员将继承组变量
+//组的变量，组也可以赋予变量，这样组成员将继承组变量
 
-```
 [web-www]
 www-a http_port=89 maxRequestsPerChild=808
 www-a http_port=303 maxRequestsPerChild=909
@@ -151,12 +141,9 @@ www-a http_port=303 maxRequestsPerChild=909
 [web-www:vars]
 ntp_server=ntp.example.com
 proxy=proxy.example.com
-```
 
-- 组嵌套
-可以把组作为另外一个组的子成员，已经分配变量给整个组使用。这些变量可以给 `/usr/bin/ansible-playbook` 使用，但是不能给 `/usr/bin/ansible` 使用
+// 组嵌套 可以把组作为另外一个组的子成员，已经分配变量给整个组使用。这些变量可以给 `/usr/bin/ansible-playbook` 使用，但是不能给 `/usr/bin/ansible` 使用
 
-```
 [group1]
 host1
 host2
@@ -241,29 +228,20 @@ ansible webservers -m service -a "name=httpd state=restarted"
 ```
 简单的说， pattern 是一个主机筛选器，支持正则匹配。
 
-- 所有主机
-
 ```
+// 所有主机
 all
 *
-```
 
-- 特定主机，支持 ip 地址和主机名
-
-```
+//特定主机，支持 ip 地址和主机名
 web211
 172.16.11.211
-```
 
-- 主机组，可以指定特定组或多个组，多个组之间使用`:`分隔
-
-```
+//主机组，可以指定特定组或多个组，多个组之间使用`:`分隔
 web_server
 web_server:database_server
-```
-- 支持正则表达式和逻辑运算
 
-```
+// 支持正则表达式和逻辑运算
 web_server:!web211
 web_server:&db1
 web_server:database_server:&db1:!web211
@@ -317,11 +295,41 @@ ansible  all -m ping
   - -u：指定远端机器的用户
 
 ```
-// 查看远端主机 uptime，Ansible 默认使用 `command` 模块； -a 指定模块的参数
-ansible all -a 'uptime'
-172.16.11.210 | SUCCESS | rc=0 >>
-13:40:23 up 126 days,  2:19,  2 users,  load average: 0.00, 0.01, 0.05
+ansible all -m ping     \\ping 所有的节点
+ansible 127* -m ping
+ansible -i /etc/ansible/hosts -m command -a "uptime"  // 指定 pattens 文件
+ansible all -m ping -u test
+ansible all -m ping -u test --sudo
+ansible all -m ping -u test --sudo --sudo-user tom
+ansible testhost -m setup -a "filter=ansible_all_ipv4_addresses" \\使用 filter 过滤信息   
+ansible testhosts -a "/sbin/reboot" -f 10  \\重启testhosts组的所有机器，每次重启10台
+ansible testhosts -m copy -a "src=/etc/hosts dest=/tmp/hosts" \\拷贝本地hosts 文件到testhosts组所有主机的/tmp/hosts
+ansible webservers -m file -a "dest=/srv/foo/a.txt mode=600" \\file 模块允许更改文件的用户及权限
+ansible webservers -m file -a "dest=/srv/foo/b.txt mode=600 owner=mdehaan group=mdehaan"
+ansible webservers -m file -a "dest=/path/to/c mode=755 owner=mdehaan group=mdehaan state=directory" \\使用 file 模块创建目录，类似 mkdir -p
+ansible webservers -m file -a "dest=/path/to/c state=absent" \\file 模块允许更改文件的用户及权限  
+ansible testhosts -a 'cal'  \\默认是使用 command 模块，所以使用command的命令时不用添加 -m
+ansible webhosts -m command -a 'date' \\在 hosts 文件中的 webhosts 组下的所有主机都使用 date 命令
+ansible webhosts -m command -a 'ping' \\在 hosts 文件中的 webhosts 组下的所有主机都使用 date 命令
+ansible testhosts -m service -a "name=ntpd state=restarted"
 
-172.16.11.211 | SUCCESS | rc=0 >>
-13:40:23 up 126 days,  2:10,  2 users,  load average: 0.03, 0.06, 0.05
+使用 user 模块对于创建新用户和更改、删除已存在用户非常方便：
+ansible all -m user -a "name=foo password=<crypted password here>"
+ansible all -m user -a "name=foo state=absent"
+
+// 服务管理：
+ansible webservers -m service -a "name=httpd state=restarted" \\重启 webservers 组所有主机的 httpd 服务
+ansible webservers -m service -a "name=httpd state=started"  \\确保 webservers 组所有主机的 httpd 是启动的
+ansible webservers -m service -a "name=httpd state=stopped"  \\确保 webservers 组所有主机的 httpd 是关闭的
+
+//后台运行，长时间运行的操作可以放到后台执行，ansible 会检查任务的状态；在主机上执行的同一个任务会分配同一个 job ID
+ansible all -B 3600 -a "/usr/bin/long_running_operation --do-stuff" \\后台执行命令 3600s，-B 表示后台执行的时间
+ansible all -m async_status -a "jid=123456789"  \\检查任务的状态
+ansible all -B 1800 -P 60 -a "/usr/bin/long_running_operation --do-stuff" \\后台执行命令最大时间是 1800s 即 30 分钟，-P 每 60s 检查下状态默认 15s
+
+// 搜集系统信息
+ansible all -m setup \\搜集主机的所有系统信息
+ansible all -m setup --tree /tmp/facts \\搜集系统信息并以主机名为文件名分别保存在 /tmp/facts 目录
+ansible all -m setup -a 'filter=ansible_*_mb' \\搜集和内存相关的信息
+ansible all -m setup -a 'filter=ansible_eth[0-2]' \\搜集网卡信息
 ```
