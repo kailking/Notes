@@ -25,7 +25,7 @@ VRRP全称 Virtual Router Redundancy Protocol，即 虚拟路由冗余协议。�
 
 
 ## 整体架构图
-![global](http://www.zerounix.com/images/web/nginx/keepalived-nginx.png)
+![global](https://illlusion.github.io/resource/images/web/nginx/keepalived-nginx.png)
 
 # 安装
 
@@ -102,7 +102,7 @@ ExecReload=/bin/kill -HUP $MAINPID
 [Install]
 WantedBy=multi-user.target
 ```
-[INIT-keepalived](http://www.zerounix.com/upload/nginx/init-keepalived)
+[INIT-keepalived](https://illlusion.github.io/resource/upload/nginx/init-keepalived)
 ```
 /etc/init.d/keepalived start
 ```

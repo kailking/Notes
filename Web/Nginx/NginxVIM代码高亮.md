@@ -11,4 +11,4 @@
  echo "au BufRead,BufNewFile /usr/local/nginx/* set ft=nginx" >> ~/.vim/filetype.vim
  ```
 
- [nginx.vim文件下载链接](http://www.zerounix.com/upload/web/nginx/nginx.vim)
+ [nginx.vim文件下载链接](https://illlusion.github.io/resource/upload/web/nginx/nginx.vim)

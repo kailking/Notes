@@ -397,7 +397,7 @@ ansible-galaxy init httpd
 
 ## include 语句
 
-- 普通用法
+### 普通用法
 
 ```
 // 可以像其他 include 语句一样， 直接include
@@ -406,4 +406,131 @@ ansible-galaxy init httpd
   firewalld: port=80/tcp permanent=true state=enable immediate=yes
 
 // main.yml
+tasks:
+  - include: tasks/firewall_httpd_default.yml
+```
+
+### 高级用法，传递参数
+```
+// 添加参数
+tasks:
+  - include: tasks/firewall.yml port=80
+  - include: tasks/firewall.yml port=3306
+
+//  支持结构化
+tasks:
+  - include: tasks/firewall.yml
+    vars:
+      wp_user: charlie
+      ssh_key:
+        - key/one.txt
+        - key/two.txt
+// json格式
+tasks:
+  - { include: wordpress.yml, wp_user: timmy, ssh_keys: [ 'key/one.txt', 'key/two.txt' ] }
+```
+### 在 handlers section 中定义
+```
+// handlers.yml
+// this might be in a file line handlers/handlers.yml
+- name: restart apache
+  service: name = apache state=restarted
+// 在一个 playbook 中引用 handlers.yml
+handlers:
+  - include: handlers/handlers.yml
+```
+
+include 语句可以和其他非 include 的 tasks 和 handlers 混合使用。
+
+**例如：**
+```
+- name: this is a play at the top level of a file
+  host: all
+  remote_user: root
+  tasks:
+    - name: say hi
+      tags: foo
+      shell: echo "Hi "
+- include: load_balancers.yml
+- include: webservers.yml
+- include: dbservers.yml
+```
+
+## Roles
+Ansible 中还有一个比 include 更为强大的代码重用机制，那就是roles！。Roles 基于一个已知的文件结构，去自动加载某些 var_files, tasks, handlers，基于 roles 对内容进行分组，更有利于与其他用户分享 roles。
+Ansible提供了一个分享role的平台, https://galaxy.ansible.com/, 在galaxy上可以找到别人写好的role.
+
+### Roled的目录结构
+在 ansible 中，通过遵循特定的目录结构，可以实现对 role 的定义。下面的目录结构是定义了两个 role， 一个名字是 common，另外一个是 webserver，并在 site.yml 中调用这两个 role。
+```
+// role 的目录结构
+site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+   webservers/
+     files/
+     templates/
+     tasks/
+     handlers/
+     vars/
+     defaults/
+     meta/
+
+// site.yml 中使用
+---
+- hosts: webservers
+  roles:
+    - common
+    - webservers
+```
+
+###  使用带参数的 role
+```
+---
+- hosts: webservers
+  roles:
+    - common
+    - { role: foo_app_instance, dir: '/opt/a', port: 5000 }
+    - { role: foo_app_instance, dir: '/opt/b', port: 5001 }
+// 设置触发条件,条件语句应用到 role 中的每个 task上。
+---
+- hosts: webservers
+  roles:
+    - { role: some_role, when: "ansible_os_family == 'RedHat'" }
+// 分配 tags
+---
+- hosts: webservers
+  roles:
+    - { role: foo, tags: [ "bar" , "baz" ] }    
+```
+### 指定默认的参数
+在指定默认参数后，如果在调用时传参数，那么就使用传入的参数值，否则使用默认参数。
+```
+//指定默认参数
+main.yml
+roles:
+  role_with_var
+    tasks:
+      main.yml
+    vars:
+      main.yml
+// roles/role_with_var/vars/main.yml
+param: "I am the default value"
+```
+### 与条件语句一起执行
+```
+//定义只有在 RedHat 系列才执行的 role
+---
+- host: webservers
+  roles:
+    - { role: some_role, when: "ansible_os_family == 'RedHat'" }
 ```

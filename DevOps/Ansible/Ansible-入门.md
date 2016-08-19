@@ -115,7 +115,7 @@ web211.example.com
 
 // 定义别名和端口
 [web]
-www ansible_ssh_port=1234 ansible_ssh_host=1872.16.11.211  ansible_ssh_pass=passwd \\ 远程ip，ssh登陆用户、密码
+www ansible_ssh_port=1234 ansible_ssh_host=172.16.11.211  ansible_ssh_pass=passwd \\ 远程ip，ssh登陆用户、密码
 other1  ansible_connertion=ssh ansible_ssh_user = illlusion
 
 //执行主机，支持正则表达

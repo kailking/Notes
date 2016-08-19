@@ -1,12 +1,12 @@
 ### 什么是Fish Shell
 FISH（friendly interactive shell）是一个用户友好的命令行 shell，主要是用来进行交互式使用。shell 就是一个用来执行其他程序的程序。
 
-![Fish-Shell](http://www.zerounix.com/images/system/bash/fishshell/fish-shell.png)
+![Fish-Shell](https://illlusion.github.io/resource/images/system/bash/fishshell/fish-shell.png)
 
 ### Fish Shell特性
 #### 自动建议
 fish 会根据你的历史输入和补完来提供命令建议，就像一个网络浏览器一样。注意了，就是Netscape Navigator 4.0!
-![Fish-Shell](http://www.zerounix.com/images/system/bash/fishshell/fish-shell.gif))
+![Fish-Shell](https://illlusion.github.io/resource/images/system/bash/fishshell/fish-shell.gif))
 
 #### 漂亮的VGA 色彩
 fish 原生支持 term256， 它就是一个终端技术的艺术国度。 你将可以拥有一个难以置信的、256 色的shell 来使用。

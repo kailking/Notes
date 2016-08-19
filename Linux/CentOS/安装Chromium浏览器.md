@@ -16,11 +16,11 @@ wget http://people.centos.org/hughesjr/chromium/6/chromium-el6.repo
 yum install -y chromium
 ```
 这样就安装完成了。可以通过菜单来启动浏览器
-![启动浏览器](http://www.zerounix.com/images/system/centos/chromium-1.png)
+![启动浏览器](https://illlusion.github.io/resource/images/system/centos/chromium-1.png)
 
 启动后
 
-![启动后](http://www.zerounix.com/images/system/centos/chromium-2.png)
+![启动后](https://illlusion.github.io/resource/images/system/centos/chromium-2.png)
 
 
 
@@ -49,7 +49,7 @@ chmod +x chrome_pepperflash_copy.sh
 ```
  也可以修改系统菜单中的对应命令
 
-![Flash plugin ](http://www.zerounix.com/images/system/centos/chromium-3.png)
+![Flash plugin ](https://illlusion.github.io/resource/images/system/centos/chromium-3.png)
 
 
 #### 安装Google Chrome PDF Viewer插件：
@@ -67,4 +67,4 @@ chmod +x chrome_libpdf_copy.sh
 ```
 ./chrome_libpdf_copy.sh
 ```
-![pdf plugin](http://www.zerounix.com/images/system/centos/chromium-3.png)
+![pdf plugin](https://illlusion.github.io/resource/images/system/centos/chromium-3.png)

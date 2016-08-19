@@ -45,7 +45,7 @@ cobbler profile edit --name=CentOS6.5-x86_64 --kickstart=/data/htdocs/kscfg/
 ```
 
 * 通过Web界面修改profile文件
-![cobbler-profile](http://www.zerounix.com/images/devops/cobbler/cobbler-profile.png)
+![cobbler-profile](https://illlusion.github.io/resource/images/devops/cobbler/cobbler-profile.png)
 
 修改之后，可以通过下面命令来查看自己修改的信息
 ```

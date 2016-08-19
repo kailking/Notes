@@ -1,18 +1,15 @@
-[TOC]
-
-
 # MFS 概述
-MooseFS是一款具有冗余容错功能的分布式文件系统。它把数据分散在多台服务器上，确保一份数据多个备份副本，对外提供统一的结构。
+MooseFS 是一款具有冗余容错功能的分布式文件系统。它把数据分散在多台服务器上，确保一份数据多个备份副本，对外提供统一的结构。
 
 ## 功能特性
-对于标准的文件操作，MooseFS表现与其他类Unix文件系统一致。
+对于标准的文件操作，MooseFS 表现与其他类Unix文件系统一致。
 支持的通过文件系统特性：
 
  - 层次结构（目录树）
- - 兼容POSIX文件属性
+ - 兼容 POSIX 文件属性
  - 支持特殊文件
  - 符号链接和硬链接
- - 基于IP地址和密码的访问控制
+ - 基于 IP 地址和密码的访问控制
 
 ## 独有特性
 
@@ -27,10 +24,10 @@ MooseFS是一款具有冗余容错功能的分布式文件系统。它把数据�
   负责各个数据存储服务器的管理，文件读写调度，文件空间回收以及恢复，多节点拷贝。
 
 - Metalogger（元数据日志服务器）
-  负责备份Master服务器的changelog。文件类型为`changelog.*.mfs`，以便在Master出问题时接替其工作
+  负责备份Master服务器的changelog。文件类型为 `changelog.*.mfs`，以便在 Master 出问题时接替其工作
 
 - Chunk（数据存储服务器）
-  负责连接Master，听从Master调度，提供存储空间，并为客户端提供数据传输
+  负责连接 Master，听从 Master 调度，提供存储空间，并为客户端提供数据传输
 
 - Client（客户端挂载）
   通过FUSE内核接口挂载远程管理服务器（master）上所管理的数据存储服务器，使用起来和本地文件系统一样
@@ -38,38 +35,39 @@ MooseFS是一款具有冗余容错功能的分布式文件系统。它把数据�
 ## MFS工作图解
 - 网络架构
 
-![MooseFS-NetWork.png](http://www.zerounix.com/images/opstech/moosefs/moosefs-network.png 'MooseFS-NetWork')
+![MooseFS-NetWork.png](https://illlusion.github.io/resource/images/opstech/moosefs/moosefs-network.png 'MooseFS-NetWork')
 
 - 工作原理
 
-![moosefs-write-process.png](http://www.zerounix.com/images/opstech/moosefs/moosefs-write-process.png 'MooseFS Write Process')
+![moosefs-write-process.png](https://illlusion.github.io/resource/images/opstech/moosefs/moosefs-write-process.png 'MooseFS Write Process')
 
 
-![moosefs-read-process.png](http://www.zerounix.com/images/opstech/moosefs/moosefs-read-process.png 'MooseFS Read Process')
+![moosefs-read-process.png](https://illlusion.github.io/resource/images/opstech/moosefs/moosefs-read-process.png 'MooseFS Read Process')
 
 - 集群拓扑
 
-![mfs-topology.png](http://www.zerounix.com/images/opstech/moosefs/mfs-topology.png 'MooseFS-Topology')
+![mfs-topology.png](https://illlusion.github.io/resource/images/opstech/moosefs/mfs-topology.png 'MooseFS-Topology')
 
 ---
 
-# 安装配置MFS
+# 安装配置 MFS
 
 ## 系统环境介绍
 - OS：`CentOS Linux release 7.2.1511 (Core)`
 - 软件版本：2.0.81-1
 - 节点配置
-  | ip地址          | 角色         |
-  | ------------- | ---------- |
-  | 172.16.18.137 | master     |
-  | 172.16.18.134 | metalogger |
-  | 172.16.18.183 | chunk      |
-  | 172.16.18.184 | chunk      |
-  | 172.16.18.185 | chunk      |
-  | 172.16.18.186 | chunk      |
-  | 172.16.18.187 | chunk      |
 
-chunk上有四块硬盘，第一块为系统，剩下三块作为数据存储，每块容量为4TB
+| ip地址          | 角色         |
+| ------------- | ---------- |
+| 172.16.18.137 | master     |
+| 172.16.18.134 | metalogger |
+| 172.16.18.183 | chunk      |
+| 172.16.18.184 | chunk      |
+| 172.16.18.185 | chunk      |
+| 172.16.18.186 | chunk      |
+| 172.16.18.187 | chunk      |
+
+chunk 上有四块硬盘，第一块为系统，剩下三块作为数据存储，每块容量为4TB
 
 ## 软件安装
 
@@ -84,7 +82,7 @@ chunk上有四块硬盘，第一块为系统，剩下三块作为数据存储，
 
 - 下载软件库配置文件
 
-```shell
+```
 //For EL7 family:
 curl "http://ppa.moosefs.com/MooseFS-stable-el7.repo" > /etc/yum.repos.d/MooseFS.repo
 
@@ -98,7 +96,7 @@ If you really need CentOS 5 packages, please contact support@moosefs.com.
 
 - 安装软件包
 
-```shell
+```
 // For Master Server:
 yum install moosefs-master moosefs-cli moosefs-cgi moosefs-cgiserv
 
@@ -113,7 +111,7 @@ For Clients:
 ```
 - 启动服务
 
-```shell
+```
 //To start process manually:
 mfsmaster start
 mfschunkserver start
@@ -123,7 +121,7 @@ systemctl start moosefs-master.service
 systemctl start moosefs-chunkserver.service
 
 //For SysV OS family - EL6:
-service moosefs-master start 
+service moosefs-master start
 service moosefs-chunkserver start
 ```
 
@@ -133,19 +131,19 @@ service moosefs-chunkserver start
 
 - 下载软件包
 
-```shell
+```
 wget http://ppa.moosefs.com/src/moosefs-2.0.88-1.tar.gz
 ```
 
 - 添加用户和组
 
-```shell
+```
 useradd -s /sbin/nologin  -M mfs
 ```
 
 - 安装软件包
 
-```shell
+```
 tar-zxf moosefs-2.0.88-1.tar.gz
 cd moosefs-2.0.88
 
@@ -153,7 +151,7 @@ cd moosefs-2.0.88
 ./configure --prefix=/usr/local/mfs --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount
 
 // For metalogger
-./configure --prefix=/usr/local/mfs --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount 
+./configure --prefix=/usr/local/mfs --with-default-user=mfs --with-default-group=mfs --disable-mfschunkserver --disable-mfsmount
 
 // For chunk
 ./configure --prefix=/usr/local/mfs --with-default-user=mfs --with-default-group=mfs --disable-mfsmaster --disable-mfsmount --disable-mfscgi --disable-mfscgiserv
@@ -161,9 +159,9 @@ cd moosefs-2.0.88
 
 - 安装MFS client
 
-client安装需要fuse支持，fuse可以从源码和仓库中安装
+client安装需要 fuse 支持，fuse 可以从源码和仓库中安装
 
-```shell
+```
 ./configure --prefix=/usr/local/mfs --with-default-user=mfs --with-default-group=mfs --disable-mfsmaster --disable-mfschunkserver --disable-mfscgi --disable-mfscgiserv
 ```
 
@@ -173,7 +171,7 @@ client安装需要fuse支持，fuse可以从源码和仓库中安装
 
 - 配置文件
 
-```shell
+```
 // mfsmaster.cfg
 # WORKING_USER = mfs 运行 master server 的用户
 # WORKING_GROUP = mfs 运行 master server 的组
@@ -234,7 +232,7 @@ client安装需要fuse支持，fuse可以从源码和仓库中安装
 
 - 修改配置文件
 
-```shell
+```
 cd /usr/local/mfs/etc/
 mv mfsmaster.cfg.dist mfsmaster.cfg
 mv mfsexports.cfg.dist mfsexports.cfg
@@ -274,7 +272,7 @@ alldirs 许挂载任何指定的子目录
 
 - 启动服务
 
-```shell
+```
 /usr/local/mfs/sbin/mfsmaster start
 
 //为了监控moosefs的当前运行状态，我们可以运行cgi服务，这样就可以用浏览器查看整个moosefs的运行情况
@@ -285,7 +283,7 @@ alldirs 许挂载任何指定的子目录
 
 - 修改配置文件
 
-```shell
+```
 mv mfsmetalogger.cfg.dist mfsmetalogger.cfg
 
 META_DOWNLOAD_FREQ = 24 \\元数据备份下载请求频率，设置为1小时
@@ -294,7 +292,7 @@ MASTER_HOST = 172.16.18.137 \\修改MASTER_HOST的值，为MASTER_HOST的ip地�
 
 - 启动服务
 
-```shell
+```
 /usr/local/mfs/sbin/mfsmetalogger start
 ```
 
@@ -302,7 +300,7 @@ MASTER_HOST = 172.16.18.137 \\修改MASTER_HOST的值，为MASTER_HOST的ip地�
 
 - 配置分区
 
-```shell
+```
 parted -s /dev/sdb 'mklabel gpt';parted -s /dev/sdc 'mklabel gpt';parted -s /dev/sdd 'mklabel gpt'
 parted -s /dev/sdb  'mkpart primary 0 -1'; parted -s /dev/sdc  'mkpart primary 0 -1'; parted -s /dev/sdd 'mkpart primary 0 -1'
 mkfs.ext4 -q -T largefile /dev/sdb1;mkfs.ext4 -q -T largefile /dev/sdc1;mkfs.ext4 -q -T largefile /dev/sdd1
@@ -313,7 +311,7 @@ chown mfs:mfs /MFS_data*
 
 - 修改配置文件
 
-```shell
+```
 mv mfschunkserver.cfg.dist mfschunkserver.cfg
 修改MASTER_HOST的值，为MASTER_HOST的ip地址：
 MASTER_HOST = 172.16.18.137
@@ -327,13 +325,13 @@ mv mfshdd.cfg.dist mfshdd.cfg
 
 - 启动服务
 
-```shell
+```
 /usr/local/mfs/sbin/mfschunkserver start
 ```
 
 ### Client
 
-- 挂载MFS
+- 挂载 MFS
 
 ```
 mkdir /MFS_data
@@ -341,12 +339,10 @@ mkdir /MFS_data
 mfsmaster accepted connection with parameters: read-write,restricted_ip ; root mapped to root:root
 ```
 
-特别需要注意的是，所有的MFS 都是挂接同一个元数据服务器master 的IP,而不是其他数据存储
-服务器chunkserver 的IP
+特别需要注意的是，所有的MFS 都是挂接同一个元数据服务器 master 的 IP ,而不是其他数据存储
+服务器 chunkserver 的 IP
 
 ---
-
-
 
 # 使用MFS
 
@@ -354,7 +350,7 @@ mfsmaster accepted connection with parameters: read-write,restricted_ip ; root m
 
 Client通过MFS软件提供的工具来管理MFS文件系统，下面是工具介绍
 
-```shell
+```
 /usr/local/mfs/bin/mfstools -h
 mfs multi tool
 
@@ -387,7 +383,7 @@ deprecated tools:                                  // 递归设置
 
 MooseFS 文件系统利用下面的命令：
 
-```shell
+```
 mfsmount mountpoint [-d][-f] [-s][-m] [-n][-p] [-HMASTER][-PPORT] [-S PATH][-o OPT[,OPT...]]
 -H MASTER：是管理服务器（master server）的ip 地址
 -P PORT： 是管理服务器（ master server）的端口号，要按照mfsmaster.cfg 配置文件中的变量
@@ -395,12 +391,10 @@ MATOCU_LISTEN_POR 的之填写。如果master serve 使用的是默认端口号�
 -S PATH：指出被挂接mfs 目录的子目录，默认是/目录，就是挂载整个mfs 目录。
 ```
 
-Mountpoint：是指先前创建的用来挂接mfs 的目录。
-在开始mfsmount 进程时，用一个-m 或-o mfsmeta 的选项，这样可以挂接一个辅助的文件系统
-MFSMETA，这么做的目的是对于意外的从MooseFS 卷上删除文件或者是为了释放磁盘空间而移动的
-文件而又此文件又过去了垃圾文件存放期的恢复，例如：
+Mountpoint：是指先前创建的用来挂接 mfs 的目录。
+在开始 mfsmount 进程时，用一个`-m` 或`-o mfsmeta` 的选项，这样可以挂接一个辅助的文件系统 MFSMETA，这么做的目的是对于意外的从 MooseFS 卷上删除文件或者是为了释放磁盘空间而移动的文件而又此文件又过去了垃圾文件存放期的恢复，例如
 
-```shell
+```
 /usr/local/mfs/bin/mfsmount -m /MFS_meta/ -H 172.16.18.137
 ```
 
@@ -409,11 +403,11 @@ MFSMETA，这么做的目的是对于意外的从MooseFS 卷上删除文件或�
 目标（goal），是指文件被拷贝副本的份数，设定了拷贝的份数后是可以通过mfsgetgoal 命令来证实的，也可以通过mfsrsetgoal 来改变设定。
 
 ```
-mfssetgoal 3 /MFS_data/test/ 
+mfssetgoal 3 /MFS_data/test/
 mfssetgoal 3 /MFS_data/test/
 ```
 
-用`mfsgetgoal –r` 和`mfssetgoal –r` 同样的操作可以对整个树形目录递归操作，其等效于`mfsrsetgoal`命令。实际的拷贝份数可以通过`mfscheckfile` 和`mfsfile info`命令来证实。
+用`mfsgetgoal -r` 和`mfssetgoal -r` 同样的操作可以对整个树形目录递归操作，其等效于`mfsrsetgoal`命令。实际的拷贝份数可以通过`mfscheckfile` 和`mfsfile info`命令来证实。
 
 **注意以下几种特殊情况：**
 
@@ -426,11 +420,13 @@ mfssetgoal 3 /MFS_data/test/
 
 ### 垃圾回收站
 
-一个被删除文件能够存放在一个“ 垃圾箱”的时间就是一个隔离时间， 这个时间可以用`mfsgettrashtime` 命令来验证，也可以使用`mfssettrashtime 命令来设置。
+一个被删除文件能够存放在一个 "垃圾箱" 的时间就是一个隔离时间， 这个时间可以用`mfsgettrashtime` 命令来验证，也可以使用`mfssettrashtime 命令来设置`。
+
 ```
-mfssettrashtime 64800 /MFS_data/test/test1 
-mfsgettrashtime /MFS_data/test/test1 
+mfssettrashtime 64800 /MFS_data/test/test1
+mfsgettrashtime /MFS_data/test/test1
 ```
+
 时间的单位是秒(有用的值有:1 小时是3600 秒,24 - 86400 秒,1天 - 604800 秒)。就像文件被存储的份数一样, 为一个目录设定存放时间是要被新创建的文件和目录所继承的。数字0 意味着一个文件被删除后, 将立即被彻底删除，在想回收是不可能的。
 
 删除文件可以通过一个单独安装MFSMETA 文件系统。特别是它包含目录/ trash (包含任然可以被还原的被删除文件的信息)和/ trash/undel (用于获取文件)。只有管理员有权限访问MFSMETA(用户的uid 0，通常是root)。
@@ -439,16 +435,16 @@ mfsgettrashtime /MFS_data/test/test1
 /usr/local/mfs/bin/mfsmount -m /MFS_meta/ -H 172.16.18.137
 ```
 
-被删文件的文件名在“垃圾箱”目录里还可见,文件名由一个八位十六进制的数i-node 和被删文件的文件名组成，在文件名和i-node 之间不是用“/”,而是用了“|”替代。如果一个文件名的长度超过操作系统的限制（通常是255 个字符），那么部分将被删除。通过从挂载点起全路径的文件名被删除的文件任然可以被读写。
+被删文件的文件名在“垃圾箱”目录里还可见,文件名由一个八位十六进制的数 i-node 和被删文件的文件名组成，在文件名和 i-node 之间不是用“/”,而是用了“|”替代。如果一个文件名的长度超过操作系统的限制（通常是255 个字符），那么部分将被删除。通过从挂载点起全路径的文件名被删除的文件任然可以被读写。
 
-移动这个文件到trash/undel 子目录下，将会使原始的文件恢复到正确的MooseFS 文件系统上路径下（如果路径没有改变）。如果在同一路径下有个新的同名文件，那么恢复不会成功。
+移动这个文件到 trash/undel 子目录下，将会使原始的文件恢复到正确的 MooseFS 文件系统上路径下（如果路径没有改变）。如果在同一路径下有个新的同名文件，那么恢复不会成功。
 
 从“垃圾箱”中删除文件结果是释放之前被它站用的空间(删除有延迟,数据被异步删除)。
 
 在MFSMETA中还有另一个目录reserved，该目录内的是被删除但依然打开的文件。在用户关闭了这些被打开的文件后，reserved 目录中的文件将被删除，文件的数据也将被立即删除。在reserved 目录中文件的命名方法同trash 目录中的一样，但是不能有其他功能的操作。
 
 ### 快照snapshot
-MooseFS 系统的另一个特征是利用mfsmakesnapshot 工具给文件或者是目录树做快照
+MooseFS 系统的另一个特征是利用 mfsmakesnapshot 工具给文件或者是目录树做快照
 ```
 mfsmakesnapshot source ... destination
 ```
@@ -457,7 +453,7 @@ Mfsmakesnapshot 是在一次执行中整合了一个或是一组文件的拷贝�
 ```
 mfsappendchunks destination-file source-file ...
 ```
-当有多个源文件时，它们的快照被加入到同一个目标文件中（每个chunk 的最大量是chunk）。
+当有多个源文件时，它们的快照被加入到同一个目标文件中（每个chunk 的最大量是 chunk）。
 
 
 
@@ -489,8 +485,8 @@ mfsappendchunks destination-file source-file ...
 
 通常元数据有两部分的数据：
 
-- 主要元数据文件metadata.mfs，当mfsmaster 运行的时候会被命名为metadata.mfs.back
-- 元数据改变日志changelog.*.mfs，存储了过去的N 小时的文件改变（N 的数值是由BACK_LOGS参数设置的，参数的设置在mfschunkserver.cfg 配置文件中）。
+- 主要元数据文件metadata.mfs，当mfsmaster 运行的时候会被命名为 metadata.mfs.back
+- 元数据改变日志changelog.`*.mfs`，存储了过去的N 小时的文件改变（N 的数值是由BACK_LOGS参数设置的，参数的设置在mfschunkserver.cfg 配置文件中）。
 
 主要的元数据文件需要定期备份，备份的频率取决于取决于多少小时changelogs 储存。元数据changelogs 实时的自动复制。1.6版本中这个工作都由metalogger完成。
 
@@ -508,19 +504,20 @@ mfsmetarestore -a
 mfsmetarestore -a -d /opt/mfsmaster
 ```
 
-### 从MetaLogger中恢复Master
+### 从 MetaLogger 中恢复 Master
 
-如果mfsmetarestore -a无法修复，则使用metalogger也可能无法修复，暂时没遇到过这种情况，这里不暂不考虑。
+如果 `mfsmetarestore -a` 无法修复，则使用 metalogger 也可能无法修复，暂时没遇到过这种情况，这里不暂不考虑。
 
-1. 找回metadata.mfs.back 文件，可以从备份中找，也可以中metalogger 主机中找（如果启动了metalogger 服务），然后把metadata.mfs.back 放入data 目录，一般为{prefix}/var/mfs
-2. 从在master 宕掉之前的任何运行metalogger 服务的服务器上拷贝最后metadata 文件，然后放入mfsmaster 的数据目录。
-3. 利用mfsmetarestore 命令合并元数据changelogs，可以用自动恢复模式mfsmetarestore –a，也可以利用非自动化恢复模式
+1. 找回 metadata.mfs.back 文件，可以从备份中找，也可以中 metalogger 主机中找（如果启动了 metalogger 服务），然后把 metadata.mfs.back 放入 data 目录，一般为`{prefix}/var/mfs`
+2. 从在 master 宕掉之前的任何运行 metalogger 服务的服务器上拷贝最后 metadata 文件，然后放入 mfsmaster 的数据目录。
+3. 利用 mfsmetarestore 命令合并元数据 changelogs，可以用自动恢复模式`mfsmetarestore -a`，也可以利用非自动化恢复模式
 
 ```
 mfsmetarestore -m metadata.mfs.back -o metadata.mfs changelog_ml.*.mfs
+
 ```
 
-或：强制使用metadata.mfs.back创建metadata.mfs，可以启动master，但丢失的数据暂无法确定。
+或：强制使用 metadata.mfs.back 创建 metadata.mfs，可以启动 master，但丢失的数据暂无法确定。
 
 
 

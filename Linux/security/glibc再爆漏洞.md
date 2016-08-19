@@ -3,7 +3,7 @@
 ## 漏洞详情 ##
 
 近日，Google和Red Hat的安全人员发现GNU C Library (glibc)中存在严重的安全漏洞，可导致Linux软件被攻击者劫持，进而在Linux平台上执行任意代码，获取密码，监视用户，甚至控制计算机。CVE编号为[CVE-2015-7547](https://access.redhat.com/security/cve/CVE-2015-7547)。
-![glibc_bug](http://www.zerounix.com/images/system/security/glibc_bug.jpg)
+![glibc_bug](https://illlusion.github.io/resource/images/system/security/glibc_bug.jpg)
 
 glibc是GNU发布的libc库，即c运行库。它是Linux系统中最底层的API，几乎其它运行库都会依赖于glibc。glibc应用于众多Linux发行版本中，所以此类漏洞影响范围十分广泛。
 
@@ -13,7 +13,7 @@ glibc的DNS客户端解析器中存在基于栈的缓冲区溢出漏洞。当软
 攻击者使用恶意的DNS域名服务器创建类似于evildomain.com的域名，然后向目标用户发送带有指向该域名的链接的邮件，一旦用户点击该链接，客户端或浏览器将会开始查找ildomain.com，并最终得到恶意服务器的buffer-busting响应。该域名被嵌入服务器日志中，一旦解析就会触发远程代码执行，SH客户端也会因此被控制。或者，位于目标用户网络中的中间人攻击者可以篡改DNS响应，向恶意代码中动态注入负载。
 
 据目前的调查情况，此漏洞影响自2.9之后的所有版本，其他旧版本也可能受到影响。
-![glibc_system_version](http://www.zerounix.com/images/system/security/glibc_system_version.png '收到影响的RHEL系统版本')
+![glibc_system_version](https://illlusion.github.io/resource/images/system/security/glibc_system_version.png '收到影响的RHEL系统版本')
 
 其他系统还包括
 ```
@@ -49,11 +49,11 @@ glibc通过alloca()函数在栈中为`_nss_dns_gethostbyname4_r`函数2048字节
   对此，乌云白帽子路人甲在自己的本地lubuntu 上进行了测试，libc 版本为 2.19。lubuntu系列也属于Debian 的一个发行版，故理论上满足漏洞条件。测试过程如下：
 根据漏洞描述，我们可以做一个假的DNS Server 作为中间人，来验证该漏洞。更改DNS 解析为 127.0.0.1，刷新DNS 缓存 sudo /etc/init.d/nscd restart 执行 CVE-2015-7547-poc.py , 注意无需更改 ip_addr 。编译 CVE-2015-7547-client.c , 执行CVE-2015-7547-client
 若含有漏洞，会造成Segmentation Fault。
-![glibc_bug_info](http://www.zerounix.com/images/system/security/glibc_bug_info.png)
+![glibc_bug_info](https://illlusion.github.io/resource/images/system/security/glibc_bug_info.png)
 
 
 文件下载链接：
-[CVE-2015-7547-master.zip](http://www.zerounix.com/upload/security/CVE-2015-7547-master.zip)
+[CVE-2015-7547-master.zip](https://illlusion.github.io/resource/upload/security/CVE-2015-7547-master.zip)
 
 
 ## 修复过程 ##
