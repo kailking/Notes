@@ -97,7 +97,135 @@ tasks:
 
 ## 对子元素使用循环
 ```
+---          
+- name: create user
+  hosts: all
+  vars:      
+    users:   
+      - name: alice
+        authorized:
+          - /tmp/alice/onekey.pub
+          - /tmp/alice/twokey.pub
+        mysql:
+          password: mysql-password
+          hosts:
+            - "%"
+            - "127.0.0.1"
+            - "::1"
+            - "localhost"
+          privs:
+            - "*.*:SELECT"
+            - "DB1.*:ALL"
+      - name: bob
+        authrized:
+          - /tmp/bob/id_rsa.pub
+        mysql:
+          password: other-mysql-password
+          hosts:
+            - "db1"
+          privs:
+            - "*.*:SELECT"
+            - "DB2.*:ALL"
+```
+对子元素使用循环
+```
+- user: name={{ item.name }} state=present generate_ssh_key=yes
+  with_items: "{{users}}"
+
+- authorized_key: "user={{ item.0.name }} key='{{ lookup('file', item.1) }}'"
+  with_subelements:
+     - users
+     - authorized
+```
+根据mysql hosts以及预先给定的privs subkey列表,我们也可以在嵌套的subkey中迭代列表
+```
+- name: Setup MySQL users
+  mysql_user: name={{ item.0.user }} password={{ item.0.mysql.password }} host={{ item.1 }} priv={{ item.0.mysql.privs | join('/') }}
+  with_subelements:
+    - users
+    - mysql.hosts
+```
+
+## 对整数数组使用循环
+`with-sequence` 可以以升序拍了生成一组序列，可以指定起始、终止及步长
+```
 ---
+- hosts: all
+
+  tasks:
+
+    # create groups
+    - group: name=evens state=present
+    - group: name=odds state=present
+
+    # create some test users
+    - user: name={{ item }} state=present groups=evens
+      with_sequence: start=0 end=32 format=testuser%02x
+
+    # create a series of directories with even numbers for some reason
+    - file: dest=/var/stuff/{{ item }} state=directory
+      with_sequence: start=4 end=16 stride=2
+
+    # a simpler way to use the sequence plugin
+    # create 4 groups
+    - group: name=group{{ item }} state=present
+      with_sequence: count=4
+```
 
 
+## 随机选择
+`random_choice` 可以随机获取值
+```
+- debug: msg={{ item }}
+  with_random_choice:
+     - "go through the door"
+     - "drink from the goblet"
+     - "press the red button"
+     - "do nothing"
+```
+
+## Do-Until 循环
+```
+- action: shell /usr/bin/foo
+  register: result
+  until: result.stdout.find("all systems go") != -1
+  retries: 5
+  delay: 10
+```
+直到结果的stdout输出包含`all systems go` 或者经过重复 5 次任务
+
+## 查找匹配文件
+```
+- name: INTERFACES | Create Ansible header for /etc/network/interfaces
+  template: src={{ item }} dest=/etc/foo.conf
+  with_first_found:
+    - "{{ansible_virtualization_type}}_foo.conf"
+    - "default_foo.conf"
+```
+
+可以用于搜索路径
+```
+- name: some configuration template
+  template: src={{ item }} dest=/etc/file.cfg mode=0444 owner=root group=root
+  with_first_found:
+    - files:
+       - "{{inventory_hostname}}/etc/file.cfg"
+      paths:
+       - ../../../templates.overwrites
+       - ../../../templates
+    - files:
+        - etc/file.cfg
+      paths:
+        - templates
+```
+
+## 迭代执行结果
+```
+- name: Example of looping over a REMOTE command result
+  shell: /usr/bin/something
+  register: command_result
+
+- name: Do something with each result
+  shell: /usr/bin/something_else --param {{ item }}
+  with_items: "{{command_result.stdout_lines}}"
 ```

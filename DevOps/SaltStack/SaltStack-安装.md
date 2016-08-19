@@ -44,7 +44,7 @@ SaltStack是继Puppet、Chef之后新出现的配置管理及远程执行工具�
 
 Salt是在Apache 2.0 Licence下开发，可以用在开源或者私有项目
 
- ![salt-module](E:\dropbox\Dropbox\hexo\source\images\devops\saltstack\salt-module.png)
+ ![salt-module](http://illlusion.github.io/resource/images/devops/saltstack/salt-module.png)
 
 ---
 
@@ -244,9 +244,7 @@ salt '172.16.11.211'  test.ping
 
 ```
 salt '172.16.11.211' state.highstate //更新指定minons的所有sls状态
-
-salt '172.16.11.211' state.running //查看当前运行的sls状态
-
+salt '172.16.11.211' state.running //查看当前运行的sls状态\
 salt '172.16.11.211' state.single pkg.installed name=vim //动态指定一个sls状态
 ```
 
