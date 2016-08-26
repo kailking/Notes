@@ -11,7 +11,7 @@ Enter same passphrase again:
 
 ### 将 ssh 公钥传到要登陆的机器上
 ```
-ssh-copy-id 172.16.11.2111
+ssh-copy-id 172.16.11.211
 ```
 
 ### 直接登陆
@@ -32,12 +32,15 @@ ssh-add
 ```
 // 安装
 apt install keychain
+
 // 编辑脚本
+vim run_keychain.sh
 #!/bin/sh
 #
 keychain ~/.ssh/id_rsa
 
 // 执行脚本后回生成 keychain 配置并加入环境变量中
-source .keychain/MY-45-24-sh  >> /root/.bashrc
+source .keychain/MY-45-24-sh  
+echo "source .keychain/MY-45-24-sh " >> /root/.bashrc
 ```
 这样每次登陆之后就可以直接免密码登陆机器了。

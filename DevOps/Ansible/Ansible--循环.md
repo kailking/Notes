@@ -229,3 +229,36 @@ tasks:
   shell: /usr/bin/something_else --param {{ item }}
   with_items: "{{command_result.stdout_lines}}"
 ```
+
+## 循环列表
+```
+- name: indexed loop demo
+  debug: msg="at array position {{ item.0 }} there is a value {{ item.1 }}"
+  with_indexed_items: "{{some_list}}"
+```
+## 循环配置文件
+```
+// 使用 ini 插件
+- debug: msg="{{item}}"
+  with_ini: value[1-2] section=section1 file=lookup.ini re=true
+```
+
+## 在循环中是用注册器
+```
+- hosts: 172.16.11.210  
+  name: test loop register
+  remote_user: root     
+  tasks:                
+    - name: test loop register
+      shell: /bin/echo "{{ item }}"
+      with_items:       
+        - Hello         
+        - World         
+      register: echo_result
+      #- debug: msg="{{ echo_result.results }}"
+
+    - name: Fail if return code is not 0
+      debug: msg="The command ({{ item.cmd }}) did not have a 0 return code."
+      when: item.rc != 0                                                                                                                                    
+      with_items: "{{ echo_result.results }}"
+```
