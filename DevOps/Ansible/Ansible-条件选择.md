@@ -100,7 +100,7 @@ tasks:
 ```
 // playbook
 ---
-- hosts: all 
+- hosts: all
   remote_user: root
   vars_files:
     - "vars/common.yml"
