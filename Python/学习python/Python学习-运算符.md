@@ -339,7 +339,7 @@ Line 3 - a is available in the given list
 
 | 运算符      | 描述                       | 实例                                       |
 | -------- | ------------------------ | ---------------------------------------- |
-| is    is | 是判断两个标识符是不是引用自一个对象       | x is y, 如果 id(x) 等于 id(y) , is 返回结果 1    |
+| is     | is 是判断两个标识符是不是引用自一个对象       | x is y, 如果 id(x) 等于 id(y) , is 返回结果 1    |
 | is not   | is not是判断两个标识符是不是引用自不同对象 | x is not y, 如果 id(x) 不等于 id(y). is not 返回结果 1 |
 
 ```python
