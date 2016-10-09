@@ -138,6 +138,7 @@ ansible-playbook example.yml -tags “configuration,packages”
 ansible 默认会检查命令和模块的返回状态，并进行相应的错误处理，默认遇到错误就会中断执行 playbook，当然这些是可以更改的
 
 - 忽略错误
+
 common 和 shell 模块执行的命令如果返回非零的状态码则 ansible 判断模块执行失败，通过 `ignore_errors` 忽略返回码
 ```
 - name: this will not be counted as a filure
@@ -146,6 +147,7 @@ common 和 shell 模块执行的命令如果返回非零的状态码则 ansible 
 ```
 
 - 自定义错误判定条件
+
 命令不依赖返回状态码来判定是否执行失败，而是要查看命令返回内容来决定，比如返回内容中包括 failed 字符串，则判定为失败。示例如下：
 ```
 - name: this command prints FAILED when it fails
