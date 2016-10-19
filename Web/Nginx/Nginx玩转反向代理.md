@@ -4,7 +4,7 @@
 ## 初识反向代理 
 反向代理(Reverse Proxy)是指以代理服务器来接受Internet的连接请求，然后将请求转发给内部服务器，并将从服务器得到的结构返回给Internet请求客户端，喜事的代理服务器对外表现为一个反向代理服务器。
 
-![Reverse_Proxy](https://illlusion.github.io/resource/images/web/nginx/Reverse_Proxy.png "反向代理示意图")
+![Reverse_Proxy](https://czero000.github.io/images/nginx/Reverse_Proxy.png "反向代理示意图")
 
 ## 反向代理作用 ###
 

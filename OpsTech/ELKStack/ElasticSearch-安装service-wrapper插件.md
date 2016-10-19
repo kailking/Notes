@@ -37,6 +37,3 @@ wrapper.shutdown.timeout=300
 # ping超时时间(以秒为单位)
 wrapper.ping.timeout=300
 ```
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

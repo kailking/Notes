@@ -45,7 +45,7 @@ cobbler profile edit --name=CentOS6.5-x86_64 --kickstart=/data/htdocs/kscfg/
 ```
 
 * 通过Web界面修改profile文件
-![cobbler-profile](https://illlusion.github.io/resource/images/devops/cobbler/cobbler-profile.png)
+![cobbler-profile](https://czero000.github.io/images/cobbler/cobbler-profile.png)
 
 修改之后，可以通过下面命令来查看自己修改的信息
 ```
@@ -207,6 +207,3 @@ install_tree: http://10.10.3.64/cblr/links/CentOS6.5-x86_64
 koan --server=10.10.3.64 --system=ssq-54-157 --replace-self
 ```
 这个时候，重启系统，不需要指定PXE启动，他就会自动安装系统。
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

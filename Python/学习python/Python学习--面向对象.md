@@ -307,7 +307,7 @@ class Vector:
 
    def __str__(self):
       return 'Vector (%d, %d)' % (self.a, self.b)
-   
+
    def __add__(self,other):
       return Vector(self.a + other.a, self.b + other.b)
 
@@ -326,7 +326,7 @@ Vector(7,8)
 
 ### 类的私有属性
 
-**__private_attrs**：两个下划线开头，声明该属性为私有，不能在类地外部被使用或直接访问。在类内部的方法中使用时**self.__private_attrs**。
+**__private_attrs**：两个下划线开头，声明该属性为私有，不能在类地外部被使用或直接访问。在类内部的方法中使用时 **self.__private_attrs**。
 
 ### 类的方法
 
@@ -376,13 +376,3 @@ Python不允许实例化的类访问私有数据，但你可以使用 **object._
 .........................
 print counter._JustCounter__secretCount
 ```
-
-执行以上代码，执行结果如下：
-
-```
-1
-2
-2
-2
-```
-

@@ -16,7 +16,7 @@
 * redis: 日志队列
 
 ELK Stack示意图：
-![ELK Stack示意图](https://illlusion.github.io/resource/images/opstech/elk/elk_for_log.png "THe ELK Platform for log management")
+![ELK Stack示意图](https://czero000.github.io/images/elk/elk_for_log.png "THe ELK Platform for log management")
 
 
 ## 安装准备
@@ -143,7 +143,7 @@ ln -s '/etc/systemd/system/kibana4.service' '/etc/systemd/system/multi-user.targ
 systemctl start kibana4
 ```
 登录`172.16.11.230:5601`出现下面界面说明安装成功
-![kibana_logo](https://illlusion.github.io/resource/images/opstech/elk/kibana_logo.png?imageView/2/w/619/q/90 "kibani登录界面")
+![kibana_logo](https://czero000.github.io/images/elk/kibana_logo.png?imageView/2/w/619/q/90 "kibani登录界面")
 
 
 ### 安装Logstash
@@ -202,7 +202,3 @@ WantedBy=multi-user.target
 ```
 
 启动nginx，访问`elk.mydomain.com`是不是就跳转到kibana的界面了呢
-
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

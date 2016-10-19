@@ -1,6 +1,6 @@
 Python条件语句是通过一条或者多条语句的执行结果（True或者False）来决定执行的代码块。通过下面图来了解条件语句执行过程。
 
- ![if-statement](https://illlusion.github.io/resource/images/language/python/if-statement.jpg)
+ ![if-statement](https://czero000.github.io/images/python/if-statement.jpg)
 
 Python程序语言执行任何非0和非空值为true，0或者null为false。
 

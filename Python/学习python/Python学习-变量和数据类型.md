@@ -216,7 +216,3 @@ This is two
 | ord(x)                | 将一个字符转换为它的整数值                   |
 | hex(x)                | 将一个整数转换为一个十六进制字符串               |
 | oct(x)                | 将一个整数转换为一个八进制字符串                |
-
-
----
-** [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) **

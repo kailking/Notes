@@ -1,12 +1,12 @@
 本文详细介绍gluster fs 安装配置及之后的维护
 
 ### 环境介绍
-系统版本:CentOS 6.5 x86_64 
+系统版本:CentOS 6.5 x86_64
 
 ###  安装GlusterFS软件包
 ```
 yum install -y glusterfs glusterfs-fuse glusterfs-server xfsprogs
-/etc/init.d/glusterd start 
+/etc/init.d/glusterd start
 chkconfig glusterfsd on
 ```
 ### 配置整个GlusterFS集群
@@ -131,9 +131,9 @@ State: Peer in Cluster (Connected)
 *增加节点*
 ```
 gluster peer probe 172.16.18.245
-peer probe: success. 
+peer probe: success.
 gluster peer probe 172.16.18.246
-peer probe: success. 
+peer probe: success.
 ```
 
 *验证节点添加*
@@ -187,7 +187,7 @@ volume add-brick: success
 *验证Brick添加*
 ```
 gluster volume info  
- 
+
 Volume Name: gv0
 Type: Distributed-Replicate
 Volume ID: 8377a30e-6f6e-4dfc-9378-f56c1b3559e1
@@ -221,7 +221,7 @@ gluster volume rebalance gv0 status
                            172.16.18.241                0        0Bytes             4             0             1            completed               0.00
                            172.16.18.245                0        0Bytes             1             0             0            completed               0.00
                            172.16.18.246                0        0Bytes             0             0             0            completed               0.00
-volume rebalance: gv0: success: 
+volume rebalance: gv0: success:
 ```
 
 在线缩减
@@ -236,10 +236,10 @@ ID: b3600ab0-b103-405a-8458-4edb820c0ca1
 Status of volume: gv0
 Gluster process                             TCP Port  RDMA Port  Online  Pid
 ------------------------------------------------------------------------------
-Brick 172.16.18.241:/export/brick1/gv0      49152     0          Y       1970 
-Brick 172.16.18.242:/export/brick1/gv0      49152     0          Y       9547 
-Brick 172.16.18.243:/export/brick1/gv0      49152     0          Y       9558 
-Brick 172.16.18.244:/export/brick1/gv0      49152     0          Y       9741 
+Brick 172.16.18.241:/export/brick1/gv0      49152     0          Y       1970
+Brick 172.16.18.242:/export/brick1/gv0      49152     0          Y       9547
+Brick 172.16.18.243:/export/brick1/gv0      49152     0          Y       9558
+Brick 172.16.18.244:/export/brick1/gv0      49152     0          Y       9741
 Brick 172.16.18.245:/export/brick1/gv0      49152     0          Y       13266
 Brick 172.16.18.246:/export/brick1/gv0      49152     0          Y       12484
 NFS Server on localhost                     N/A       N/A        N       N/A  
@@ -247,14 +247,14 @@ Self-heal Daemon on localhost               N/A       N/A        Y       15073
 NFS Server on 172.16.18.243                 N/A       N/A        N       N/A  
 Self-heal Daemon on 172.16.18.243           N/A       N/A        Y       13755
 NFS Server on 172.16.18.242                 N/A       N/A        N       N/A  
-Self-heal Daemon on 172.16.18.242           N/A       N/A        Y       1424 
+Self-heal Daemon on 172.16.18.242           N/A       N/A        Y       1424
 NFS Server on 172.16.18.241                 N/A       N/A        N       N/A  
-Self-heal Daemon on 172.16.18.241           N/A       N/A        Y       2124 
+Self-heal Daemon on 172.16.18.241           N/A       N/A        Y       2124
 NFS Server on 172.16.18.246                 N/A       N/A        N       N/A  
 Self-heal Daemon on 172.16.18.246           N/A       N/A        Y       12511
 NFS Server on 172.16.18.245                 N/A       N/A        N       N/A  
 Self-heal Daemon on 172.16.18.245           N/A       N/A        Y       13293
- 
+
 Task Status of Volume gv0
 ------------------------------------------------------------------------------
 Task                 : Remove brick        
@@ -262,7 +262,7 @@ ID                   : b3600ab0-b103-405a-8458-4edb820c0ca1
 Removed bricks:     
 172.16.18.245:/export/brick1/gv0
 172.16.18.246:/export/brick1/gv0
-Status               : completed 
+Status               : completed
 gluster volume remove-brick gv0 172.16.18.245:/export/brick1/gv0  172.16.18.246:/export/brick1/gv0  status
                                     Node Rebalanced-files          size       scanned      failures       skipped               status   run time in secs
                                ---------      -----------   -----------   -----------   -----------   -----------         ------------     --------------
@@ -273,7 +273,7 @@ gluster volume remove-brick gv0 172.16.18.245:/export/brick1/gv0  172.16.18.246:
 Removing brick(s) can result in data loss. Do you want to Continue? (y/n) y
 volume remove-brick commit: success
 Check the removed bricks to ensure all files are migrated.
-If files with data are found on the brick path, copy them via a gluster mount point before re-purposing the removed brick. 
+If files with data are found on the brick path, copy them via a gluster mount point before re-purposing the removed brick.
 ```
 
 *移除节点*
@@ -286,19 +286,19 @@ peer detach: success
 Status of volume: gv0
 Gluster process                             TCP Port  RDMA Port  Online  Pid
 ------------------------------------------------------------------------------
-Brick 172.16.18.241:/export/brick1/gv0      49152     0          Y       1970 
-Brick 172.16.18.242:/export/brick1/gv0      49152     0          Y       9547 
-Brick 172.16.18.243:/export/brick1/gv0      49152     0          Y       9558 
-Brick 172.16.18.244:/export/brick1/gv0      49152     0          Y       9741 
+Brick 172.16.18.241:/export/brick1/gv0      49152     0          Y       1970
+Brick 172.16.18.242:/export/brick1/gv0      49152     0          Y       9547
+Brick 172.16.18.243:/export/brick1/gv0      49152     0          Y       9558
+Brick 172.16.18.244:/export/brick1/gv0      49152     0          Y       9741
 NFS Server on localhost                     N/A       N/A        N       N/A  
 Self-heal Daemon on localhost               N/A       N/A        Y       15386
 NFS Server on 172.16.18.241                 N/A       N/A        N       N/A  
-Self-heal Daemon on 172.16.18.241           N/A       N/A        Y       2605 
+Self-heal Daemon on 172.16.18.241           N/A       N/A        Y       2605
 NFS Server on 172.16.18.242                 N/A       N/A        N       N/A  
-Self-heal Daemon on 172.16.18.242           N/A       N/A        Y       1966 
+Self-heal Daemon on 172.16.18.242           N/A       N/A        Y       1966
 NFS Server on 172.16.18.243                 N/A       N/A        N       N/A  
 Self-heal Daemon on 172.16.18.243           N/A       N/A        Y       14272
- 
+
 Task Status of Volume gv0
 ------------------------------------------------------------------------------
 There are no active volume tasks
@@ -384,17 +384,17 @@ gluster volume statedump mamm-vol
 
 *迁移GlusterFS磁盘数据*
 ```
-# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0  start 
-# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 pause 
-# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 status 
-# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 commit 
+# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0  start
+# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 pause
+# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 status
+# gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 commit
 # gluster volume remove-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.242:/export/brick1/gv0 abort
 ```
 
 *修复GlusterFS磁盘数据（例如172.16.18.241宕机的情况下）*
 ```
-# gluster volume replace-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.246:/export/brick1/gv0 commit -force 
-# gluster volume heal gv0 
+# gluster volume replace-brick gv0 172.16.18.241:/export/brick1/gv0  172.16.18.246:/export/brick1/gv0 commit -force
+# gluster volume heal gv0
 # gluster volume heal gv0 full
 # gluster volume heal gv0 info
 ```
@@ -411,6 +411,3 @@ gluster volume statedump mamm-vol
 * performance/io-threads   #IO线程中继，属于性能调整中继的一种，由于glusterfs 服务是单线程的，使用IO 线程转换器可以较大的提高性能，这个转换器最好是被用于服务器端；
 * erformance/io-cache   #IO缓存中继，属于性能调整中继的一种，作用是缓存住已经被读过的数据，以提高IO 性能，当IO 缓存中继检测到有写操作的时候，它就会把相应的文件从缓存中删除，需要设置文件匹配列表及其设置的优先级等内容；
 * luster/stripe   #条带中继，将单个大文件分成多个小文件存于各个服务器中，实现大文件的分块存储。
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

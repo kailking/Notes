@@ -3,7 +3,7 @@
 
 编程语言提供了各种控制结构，允许更为复杂的执行路径。循环语句允许执行一个语句或者语句组，下面是大多数编程语言中的循环语句的一般形式。
 
- ![loop_architecture](https://illlusion.github.io/resource/images/language/python/loop_architecture.jpg)
+ ![loop_architecture](https://czero000.github.io/images/python/loop_architecture.jpg)
 
 Python提供了for循环和while循环（Python中没有do--while循环）
 
@@ -24,7 +24,7 @@ while 判断条件:
 
 循环语句可以是单个语句或者是语句块。判断条件可以是任意表达式、任何非零、非空的值均为true。当判断条件false时，循环结束。
 
- ![python_while_loop](https://illlusion.github.io/resource/images/language/python/python_while_loop.jpg)
+ ![python_while_loop](https://czero000.github.io/images/python/python_while_loop.jpg)
 
 ```python
 // 脚本
@@ -70,22 +70,7 @@ while 1:            // 循环条件为1必定成立
     i += 1
     if i > 10:
         break      // 当大于10跳出循环
-//输出
-2
-4
-6
-8
-10
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
+
 ```
 
 ##### 无限循环 #####
@@ -102,7 +87,7 @@ while var == 1:
 print "GoodBye"     
 ```
 
-**注意：**以上的无限循环你可以使用 CTRL+C 来中断循环。
+**注意：** 以上的无限循环你可以使用 CTRL+C 来中断循环
 
 ##### 循环使用else语句
 在 python 中，for … else 表示这样的意思，for 中的语句和普通的没有区别，else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出而中断的）的情况下执行，while … else 也是一样。
@@ -150,7 +135,7 @@ for iterating_var in sequence:
     statements(s)
 ```
 
- ![python_for_loop](https://illlusion.github.io/resource/images/language/python/python_for_loop.jpg)
+ ![python_for_loop](https://czero000.github.io/images/python/python_for_loop.jpg)
 
 ```python
 // 脚本
@@ -291,7 +276,7 @@ print "GoodBye"
 
 python `break`语句是用来终止循环语句，即循环条件没有`false`条件或者序列还没有完全递归完，也会停止执行循环语句。`break`语句用在`while`和`for`循环中。如果使用嵌套循环，break语句将停止执行最深层的循环，并执行下一行代码。
 
- ![cpp_break_statement](https://illlusion.github.io/resource/images/language/python/cpp_break_statement.jpg)
+ ![cpp_break_statement](https://czero000.github.io/images/python/cpp_break_statement.jpg)
 
 ```python
 // 脚本
@@ -327,7 +312,7 @@ GoodBye
 
 python continue语句跳出本次循环，而break跳出整个循环。`continue`语句用来告诉python跳出当前循环的剩余语句，然后继续进行下一轮循环，`continue`同样可以用在`while`和`for`循环中
 
- ![cpp_continue_statement](https://illlusion.github.io/resource/images/language/python/cpp_continue_statement.jpg)
+ ![cpp_continue_statement](https://czero000.github.io/images/python/cpp_continue_statement.jpg)
 
 ```python
 // 脚本

@@ -3,7 +3,7 @@
 
 # 主从复制原理
 MySQL的主从复制是指从服务器向主服务器获取二进制日志文件，然后在从服务器上对这些日志重新执行，从而使从服务器和主服务器保持同步。但由于是异步的复制，从服务器在一定程度上落后于主服务器，刚写入到主服务器上的数据可能服务在从服务器上查询得到。
-![replication](https://illlusion.github.io/resource/images/database/mysql/replication.gif)
+![replication](https://czero000.github.io/images/mysql/replication.gif)
 
 ## mysql支持的复制类型
 - statement 基于语句的复制：在主服务器上执行的SQL语句，在从服务器上执行同样的语句。MySQL默认采用基于语句的复制，效率比较高。一旦发现没法精确复制时，会自动选着基于行的复制。
@@ -53,7 +53,7 @@ binlog-ignore-db=information_schema
 binlog-ignore-db=performance_schema
 relay_log =mysql-relay-bin
 relay_log_index =mysql-relay-bin.index
-log-slave-updates 
+log-slave-updates
 ```
 
 ## 启动服务

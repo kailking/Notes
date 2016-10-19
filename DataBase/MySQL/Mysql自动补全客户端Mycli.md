@@ -1,5 +1,3 @@
-**![](https://illlusion.github.io/resource/images/database/mysql/main.gif)
-
 **介绍：**
 
 MyCli是一个MySQL的命令行客户端，可以实现自动补全(auto-completion)和语法高亮，同时也可应用于MariaDB和Percona。
@@ -78,30 +76,31 @@ $ sudo pip install mycli
 _自动补全_
 简单的完成如关键字和sql函数。
 
-![](https://illlusion.github.io/resource/images/database/mysql/auto-complite.png)
+![](https://czero000.github.io/images/mysql/auto-complite.png)
 
 _智能提示_
 Table name completions after the 'FROM' keyword.
 
-![](https://illlusion.github.io/resource/images/database/mysql/smart-completion.png)
+![](https://czero000.github.io/images/mysql/smart-completion.png)
 
 列名中引用的表的查询范围
 
-![](https://illlusion.github.io/resource/images/database/mysql/columns.png)
+![](https://czero000.github.io/images/mysql/columns.png)
 
 _别名支持_
 列完成将即使工作表名称别名。
 
-![](https://illlusion.github.io/resource/images/database/mysql/alias.png)
+![](https://czero000.github.io/images/mysql/alias.png)
 
 _语法高亮显示_
 sql的语法高亮显示。
 
-![](https://illlusion.github.io/resource/images/database/mysql/syntax.png)
+![](https://czero000.github.io/images/mysql/syntax.png)
 
 _pager_
 一个sql命令的输出是通过更少的命令自动输送。
 
-![](https://illlusion.github.io/resource/images/database/mysql/pager.png)
+![](https://czero000.github.io/images/mysql/pager.png)
 
 **动态效果图如下：**
+![](https://czero000.github.io/images/mysql/main.gif)

@@ -289,7 +289,7 @@ cat /etc/httpd/conf.d/welcome.conf 
 # the root URL.  To disable the Welcome page, comment
 # out all the lines below.
 #
-    
+
     <LocationMatch "^/+$">
     Options Indexes FollowSymLinks
         Order allow,deny
@@ -328,5 +328,3 @@ xmlrpclib.Fault: :'login failed'">
 etc/init.d/cobblerd restart
 cobbler get-loaders
 ```
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

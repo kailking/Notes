@@ -10,9 +10,9 @@ logstash 作为无状态的软件，配合消息队列系统，可以很轻松�
 cd /etc/pki/tls/
 openssl req -subj '/CN=elk.mydomain.com/' -x509 -days 3650 -batch -nodes -newkey rsa:2048 -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
 ```
-如果按照官方文档操作，`logstsh-forwarder`会报错:`Failure connecting to 172.16.11.230: dial tcp elk.mydomain.com:5000: connection refused`，为了避免报错，这里比官方的增加了***" -subj '/CN=elk.mydomain.com/'"***。 
+如果按照官方文档操作，`logstsh-forwarder`会报错:`Failure connecting to 172.16.11.230: dial tcp elk.mydomain.com:5000: connection refused`，为了避免报错，这里比官方的增加了 ***" -subj '/CN=elk.mydomain.com/'"***。 
 
-然后把证书发送到logstash-forwarder的shipper端服务器上：
+然后把证书发送到logstash-forwarder的shipper端服务器上
 ```
 scp private/logstash-forwarder.key 172.16.11.175:/etc/pki/tls/private 
 scp certs/logstash-forwarder.crt 172.16.11.175:/etc/pki/tls/certs 
@@ -86,6 +86,3 @@ cat /etc/logstash-forwarder.conf
 }
 ```
 这样就可以在index端接受到数据，在通过kibana将数据可视化
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

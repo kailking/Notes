@@ -46,7 +46,7 @@ conn L2TP-PSK-noNAT
     rekey=no
     ikelifetime=8h
     salifetime=1h
-    left=59.151.49.125
+    left=serverIP
     leftprotoport=17/1701
     right=%any
     rightprotoport=17/%any
@@ -98,7 +98,7 @@ Opportunistic Encryption
 ```
 vim /etc/xl2tpd/xl2tpd.conf
 [global]
-listen-addr = 59.151.49.125
+listen-addr = serverIP
 auth file = /etc/ppp/chap-secrets
 ipsec saref = yes
 ; force userspace = yes

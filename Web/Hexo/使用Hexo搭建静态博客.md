@@ -354,30 +354,6 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
 
 也可以手动下载后解压到 themes 目录,全局配置文件 _config.yml 中 theme 改成 next
 
-#### 主题目录结构
-
-```
-.
-├── languages #国际化
-| ├── default.yml #默认
-| └── zh-CN.yml #中文
-├── layout #布局
-| ├── _partial #局部的布局
-| └── _widget #小挂件的布局
-├── script #js脚本
-├── source #源代码文件
-| ├── css #CSS
-| | ├── _base #基础CSS
-| | ├── _partial #局部CSS
-| | ├── fonts #字体
-| | ├── images #图片
-| | └── style.styl #style.css
-| ├── fancybox #fancybox
-| └── js #js
-├── _config.yml #主题配置文件
-└── README.md #主题介绍
-
-```
 
 #### 主题配置文件
 ```

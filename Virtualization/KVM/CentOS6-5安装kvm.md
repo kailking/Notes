@@ -119,7 +119,3 @@ BRIDGE=br1
 
 ### 使用virt-manager安装建立虚拟机
 virt-manager 是基于 libvirt 的图像化虚拟机管理软件，操作类似vmware，不做详细介绍。
-
-
----
-## [DigitalOcean的VPS，稳定、便宜，用于搭建自己的站点和梯子，现在注册即得10$,免费玩2个月](https://www.digitalocean.com/?refcode=9e4ab85e22ec) ##

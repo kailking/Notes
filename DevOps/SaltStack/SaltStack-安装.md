@@ -7,7 +7,7 @@ SaltStack是继Puppet、Chef之后新出现的配置管理及远程执行工具�
 - **配置管理系统，能够维护预定义状态的远程节点（比如，确保指定的软件包被安装和特定的服务在运行）**
 - **一个分布式远程执行系统，用来在远程节点上执行命令和查询数据，可以单个节点，也可以是选定规则**
 
-![salt_functions](https://illlusion.github.io/resource/images/devops/saltstack/salt_functions.png)]
+![salt_functions](https://czero000.github.io/images/saltstack/salt_functions.png)]
 
 **SaltStack特点**
 
@@ -44,7 +44,7 @@ SaltStack是继Puppet、Chef之后新出现的配置管理及远程执行工具�
 
 Salt是在Apache 2.0 Licence下开发，可以用在开源或者私有项目
 
- ![salt-module](http://illlusion.github.io/resource/images/devops/saltstack/salt-module.png)
+ ![salt-module](http://czero000.github.io/images/saltstack/salt-module.png)
 
 ---
 
