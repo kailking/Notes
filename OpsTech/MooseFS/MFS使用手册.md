@@ -35,18 +35,18 @@ MooseFS 是一款具有冗余容错功能的分布式文件系统。它把数据
 ## MFS工作图解
 - 网络架构
 
-![MooseFS-NetWork.png](https://czero000.github.io/images/moosefs/moosefs-network.png 'MooseFS-NetWork')
+![MooseFS-NetWork.png](http://ofc9x1ccn.bkt.clouddn.com/moosefs/moosefs-network.png 'MooseFS-NetWork')
 
 - 工作原理
 
-![moosefs-write-process.png](https://czero000.github.io/images/moosefs/moosefs-write-process.png 'MooseFS Write Process')
+![moosefs-write-process.png](http://ofc9x1ccn.bkt.clouddn.com/moosefs/moosefs-write-process.png 'MooseFS Write Process')
 
 
-![moosefs-read-process.png](https://czero000.github.io/images/moosefs/moosefs-read-process.png 'MooseFS Read Process')
+![moosefs-read-process.png](http://ofc9x1ccn.bkt.clouddn.com/moosefs/moosefs-read-process.png 'MooseFS Read Process')
 
 - 集群拓扑
 
-![mfs-topology.png](https://czero000.github.io/images/moosefs/mfs-topology.png 'MooseFS-Topology')
+![mfs-topology.png](http://ofc9x1ccn.bkt.clouddn.com/moosefs/mfs-topology.png 'MooseFS-Topology')
 
 ---
 

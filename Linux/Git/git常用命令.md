@@ -7,10 +7,10 @@ Git已经成为程序员日常工具之一，那些Git基本的命令，每天�
 - 版本库(Repository)分为本地仓库（Local)和远程仓库(Remote)
 几乎所有常用命令就是围绕这几个概念来操作的，一图胜千言，下面是一张比较简单的图，包括了最基本的命令
 
-![simple](http://czero000.github.io/images/git/git-simple.png)
+![simple](http://ofc9x1ccn.bkt.clouddn.com/git/git-simple.png)
 
 但只会使用以上命令是不够的，在这个复杂纷繁的程序世界，事情没你想的那么简单，不过有些事情想想就够了，不一定要去做，真要去做你也做不来，比如自己写个git来，但是，更多地的了解git是我们每个程序员都可以做得到的事。再看下图：
-![advance](http://czero000.github.io/images/git/git-advance.jpg)
+![advance](http://ofc9x1ccn.bkt.clouddn.com/git/git-advance.jpg)
 
 下面的命令结合上面两张图来理解、练习、记忆效果更加。暂时用不着的命令记不住，不理解也没关系，哪天遇到问题，再来找找有没有合适的方法也不迟。
 

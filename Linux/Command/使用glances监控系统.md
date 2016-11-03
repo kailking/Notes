@@ -1,5 +1,5 @@
 ## 使用Glances监控系统 ##
-![glances_monitor](https://czero000.github.io/images/command/glances_monitor.jpg)
+![glances_monitor](http://ofc9x1ccn.bkt.clouddn.com/command/glances_monitor.jpg)
 Glances 是一个用于监控系统的跨平台、基于文本模式的命令行工具。它是用 Python 编写的，使用 psutil 库从系统获取信息。你可以用它来监控 CPU、平均负载、内存、网络接口、磁盘 I/O，文件系统空间利用率、挂载的设备、所有活动进程以及消耗资源最多的进程。Glances 有很多有趣的选项。它的主要特性之一是可以在配置文件中设置阀值(careful小心、warning警告、critical致命)，然后它会用不同颜色显示信息以表明系统的瓶颈。
 
 ### Glances的功能 ###
@@ -29,7 +29,7 @@ sudo pip install --upgrade glances 
 glances 
 ```
 你将看到类似下图的输出：
-![glances_output](https://czero000.github.io/images/command/glances_output.jpg "glances monitor system output")
+![glances_output](http://ofc9x1ccn.bkt.clouddn.com/command/glances_output.jpg "glances monitor system output")
 
 要退出`Glances`终端，按 `ESC 键或 Ctrl + C`。
 
@@ -77,7 +77,7 @@ Glances 提供了很多快捷键，可以在它运行时，用来查找输出信
 glances -s 
 ```
 你会看到类似下面的输出：
-![glances_remote_output](https://czero000.github.io/images/command/glances_remote_output.jpg "glances monitor system remote output")
+![glances_remote_output](http://ofc9x1ccn.bkt.clouddn.com/command/glances_remote_output.jpg "glances monitor system remote output")
 
 如你所见，Glances 运行在 61209 端口。
 

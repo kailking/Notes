@@ -7,7 +7,7 @@
 * 无需保持实时连接，不用考虑断线问题。在使用SSH时，总会发生断开连接的情况，如网络不稳定、电脑休眠、切换wifi等，此时SSH连接将断开，浏览网页什么的会提示无法连接到代理服务器。虽然客户端大都支持断线重连，但是反应经常不太灵敏，平均需要30秒左右的时间（而且这个时间是从你点开网页开始算的）。如果你用的是手机的话，鉴于手机网络的多变性，人一旦动起来就几乎不可用了。
 * 更丰富的客户端支持。目前Shadowsocks官网（是shadowsocks.org，不是.com那个，.com那个是售卖账号的，并非官网，有假冒官网的嫌疑）提供几乎全平台支持，包括linux和非越狱iPhone在内。尤其是OS X版的自动代理模式（PAC）非常稳定，胜过GoAgentX，完美支持safari。同时，各个平台上的客户端使用都十分简单，基本上就是填写一下地址端口密码什么的，就能开始使用了，连点击连接都不用。另外，大部分客户端支持扫描屏幕二维码完成配置，这个指导新手不要太爽。
 [shadowsocks软件覆盖](https://shadowsocks.org/en/download/clients.html)
-![shadowsocks](https://czero000.github.io/images/system/proxy/shadowsocks-software.png "shadowsocks软件覆盖")
+![shadowsocks](http://ofc9x1ccn.bkt.clouddn.com/system/proxy/shadowsocks-software.png "shadowsocks软件覆盖")
 
 ## 服务端 ##
 

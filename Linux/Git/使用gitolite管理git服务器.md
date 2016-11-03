@@ -8,7 +8,7 @@
 
 # 安装 Gitolite
 Gitolite 的安装步骤如下如：
-![gitolite](https://czero000.github.io/images/git/gitolite.png "Gitolite")
+![gitolite](http://ofc9x1ccn.bkt.clouddn.com/git/gitolite.png "Gitolite")
 
 ## 系统环境
 系统采用最新的 `Ubuntu-16-04 LTS`

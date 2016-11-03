@@ -3,7 +3,7 @@
 
 编程语言提供了各种控制结构，允许更为复杂的执行路径。循环语句允许执行一个语句或者语句组，下面是大多数编程语言中的循环语句的一般形式。
 
- ![loop_architecture](https://czero000.github.io/images/python/loop_architecture.jpg)
+ ![loop_architecture](http://ofc9x1ccn.bkt.clouddn.com/python/loop_architecture.jpg)
 
 Python提供了for循环和while循环（Python中没有do--while循环）
 
@@ -24,7 +24,7 @@ while 判断条件:
 
 循环语句可以是单个语句或者是语句块。判断条件可以是任意表达式、任何非零、非空的值均为true。当判断条件false时，循环结束。
 
- ![python_while_loop](https://czero000.github.io/images/python/python_while_loop.jpg)
+ ![python_while_loop](http://ofc9x1ccn.bkt.clouddn.com/python/python_while_loop.jpg)
 
 ```python
 // 脚本
@@ -135,7 +135,7 @@ for iterating_var in sequence:
     statements(s)
 ```
 
- ![python_for_loop](https://czero000.github.io/images/python/python_for_loop.jpg)
+ ![python_for_loop](http://ofc9x1ccn.bkt.clouddn.com/python/python_for_loop.jpg)
 
 ```python
 // 脚本
@@ -276,7 +276,7 @@ print "GoodBye"
 
 python `break`语句是用来终止循环语句，即循环条件没有`false`条件或者序列还没有完全递归完，也会停止执行循环语句。`break`语句用在`while`和`for`循环中。如果使用嵌套循环，break语句将停止执行最深层的循环，并执行下一行代码。
 
- ![cpp_break_statement](https://czero000.github.io/images/python/cpp_break_statement.jpg)
+ ![cpp_break_statement](http://ofc9x1ccn.bkt.clouddn.com/python/cpp_break_statement.jpg)
 
 ```python
 // 脚本
@@ -312,7 +312,7 @@ GoodBye
 
 python continue语句跳出本次循环，而break跳出整个循环。`continue`语句用来告诉python跳出当前循环的剩余语句，然后继续进行下一轮循环，`continue`同样可以用在`while`和`for`循环中
 
- ![cpp_continue_statement](https://czero000.github.io/images/python/cpp_continue_statement.jpg)
+ ![cpp_continue_statement](http://ofc9x1ccn.bkt.clouddn.com/python/cpp_continue_statement.jpg)
 
 ```python
 // 脚本

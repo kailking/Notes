@@ -2,11 +2,11 @@
 Ansible 是基于 python 的配置管理和应用部署工具。官方给的 title是 "Ansible is Simple IT Automation" ---简单的自动化IT工具。
 ## 架构图
 
-![ansible架构图](http://czero000.github.io/images/ansible/ansible.png "ansible架构图")
+![ansible架构图](http://ofc9x1ccn.bkt.clouddn.com/ansible/ansible.png "ansible架构图")
 
 ## 工作原理
 
-![工作原理](http://czero000.github.io/images/ansible/ansible-work.png "ansible工作原理")
+![工作原理](http://ofc9x1ccn.bkt.clouddn.com/ansible/ansible-work.png "ansible工作原理")
 
 
 - 管理端支持 local、 ssh、zeromq 三种方式连接被控端，默认使用 ssh

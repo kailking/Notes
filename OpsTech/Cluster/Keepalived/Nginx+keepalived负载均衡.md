@@ -25,7 +25,7 @@ VRRP全称 Virtual Router Redundancy Protocol，即 虚拟路由冗余协议。�
 
 
 ## 整体架构图
-![global](https://czero000.github.io/images/web/nginx/keepalived-nginx.png)
+![global](http://ofc9x1ccn.bkt.clouddn.com/web/nginx/keepalived-nginx.png)
 
 # 安装
 

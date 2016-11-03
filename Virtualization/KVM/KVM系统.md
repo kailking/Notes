@@ -62,7 +62,7 @@
 特点：祼金属架构RHEV-H或在关键的硬盘和网卡上支持半虚拟化VirtIO，达到最佳性能。
 I/O协议栈：KVM重用了整个Linux I/O协议栈，所以KVM的用户就自然就获得了最新的驱动和I/O协议栈的改进。
 
- ![kvm-vt](http://czero000.github.io/images/kvm/kvm-vt.png)
+ ![kvm-vt](http://ofc9x1ccn.bkt.clouddn.com/kvm/kvm-vt.png)
 
 - VmWare ESX
 
@@ -70,7 +70,7 @@ I/O协议栈：KVM重用了整个Linux I/O协议栈，所以KVM的用户就自�
 架构：裸金属架构
 I/O协议栈：VMware选择性能，但是把I/O协议栈放到了hypervisor里面。不幸的是，VMware kernel是专有的，那就意味着VMware不得不开发和维护整个协议栈，会导致开发速度会减慢，你的硬件可能要等一段时间才会得到VMware的支持。
 
- ![vmware-vt](http://czero000.github.io/images/kvm/vmware-vt.png)
+ ![vmware-vt](http://ofc9x1ccn.bkt.clouddn.com/kvm/vmware-vt.png)
 
 - Citrix XenServer
 
@@ -78,7 +78,7 @@ I/O协议栈：VMware选择性能，但是把I/O协议栈放到了hypervisor里�
 架构：裸金属架构
 I/O协议栈：Xen选择了可维护这条道路，它将所有的I/O操作放到了Linux guest里面，也就是所谓的domain-0里面。重用Linux来做I/O, Xen的维护者就不用重写整个I/O协议栈了。但不幸的是，这样就牺牲了性能：每一个中断都必需经过Xen的调度，才能切换到domain 0, 并且所有的东西都不得不经过一个附加层的映射。
 
- ![xen-vt](http://czero000.github.io/images/kvm/xen-vt.png)
+ ![xen-vt](http://ofc9x1ccn.bkt.clouddn.com/kvm/xen-vt.png)
 
 - Microsoft Hyper-V
 
@@ -87,7 +87,7 @@ I/O协议栈：Xen选择了可维护这条道路，它将所有的I/O操作放�
 特点：父分区（宿主机操作系统）的位置挪到了子分区（虚拟机操作系统）的旁边，宿主机操作系统和虚拟机操作系统是平级的，没有谁依附谁之上的关系。
 I/O协议栈：虚拟机看到的所有设备不再都是虚拟出来的，有部分的硬件资源是真实的物理设备。
 
- ![hyper-vt](http://czero000.github.io/images/kvm/hyper-vt.png)
+ ![hyper-vt](http://ofc9x1ccn.bkt.clouddn.com/kvm/hyper-vt.png)
 
 ---
 

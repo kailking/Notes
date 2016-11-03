@@ -76,31 +76,31 @@ $ sudo pip install mycli
 _自动补全_
 简单的完成如关键字和sql函数。
 
-![](https://czero000.github.io/images/mysql/auto-complite.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/auto-complite.png)
 
 _智能提示_
 Table name completions after the 'FROM' keyword.
 
-![](https://czero000.github.io/images/mysql/smart-completion.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/smart-completion.png)
 
 列名中引用的表的查询范围
 
-![](https://czero000.github.io/images/mysql/columns.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/columns.png)
 
 _别名支持_
 列完成将即使工作表名称别名。
 
-![](https://czero000.github.io/images/mysql/alias.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/alias.png)
 
 _语法高亮显示_
 sql的语法高亮显示。
 
-![](https://czero000.github.io/images/mysql/syntax.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/syntax.png)
 
 _pager_
 一个sql命令的输出是通过更少的命令自动输送。
 
-![](https://czero000.github.io/images/mysql/pager.png)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/pager.png)
 
 **动态效果图如下：**
-![](https://czero000.github.io/images/mysql/main.gif)
+![](http://ofc9x1ccn.bkt.clouddn.com/mysql/main.gif)

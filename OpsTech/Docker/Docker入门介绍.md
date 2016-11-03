@@ -12,8 +12,8 @@ Docker产生的目的就是为了解决以下问题：
 2. 云计算时代的到来：AWS 的成功，引导开发者将应用转移到云上, 解决了硬件管理的问题，然而软件配置和管理相关的问题依然存在 (AWS cloudformation是这个方向的业界标准, 样例模板可参考这里)。Docker 的出现正好能帮助软件开发者开阔思路，尝试新的软件管理方法来解决这个问题。
 
 3. 虚拟化手段的变化：云时代采用标配硬件来降低成本，采用虚拟化手段来满足用户按需分配的资源需求以及保证可用性和隔离性。然而无论是 KVM 还是 Xen，在 Docker 看来都在浪费资源，因为用户需要的是高效运行环境而非OS，GuestOS 既浪费资源又难于管理，更加轻量级的 LXC 更加灵活和快速。
-[!vm](http://czero000.github.io/images/docker/vm.png)
-[!docker](http://czero000.github.io/images/docker/docker.png)
+![vm](http://ofc9x1ccn.bkt.clouddn.com//docker/vm.png)
+![docker](http://ofc9x1ccn.bkt.clouddn.com/docker/docker.png)
 
 4. LXC 的便携性：LXC 在 Linux 2.6 的 Kernel 里就已经存在了，但是其设计之初并非为云计算考虑的，缺少标准化的描述手段和容器的可便携性，决定其构建出的环境难于分发和标准化管理(相对于 KVM 之类 image 和 snapshot 的概念)。Docker 就在这个问题上做出了实质性的创新方法。
 
@@ -27,7 +27,6 @@ Docker产生的目的就是为了解决以下问题：
 - 变更管理： 容器文件系统的变更可以提交到新的映像中，并可重复使用以创建更多的容器。无需使用模板或手动配置。
 - 交互式 Shell： Docker 可以分配一个虚拟终端并关联到任何容器的标准输入上，例如运行一个一次性交互 shell。
 
-Docker可以运行在Ubuntu16.04 LTS 和 CentOS7.x上，可能会和其他的二进制 EL7 兼容工作，但是 Docker 官方并没有去做测试。
 
 ## Docker vs 传统虚拟化技术
 作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式（xen、kvm、vmware）相比具有众多的优势。
@@ -120,7 +119,7 @@ Docker 作为一个开源的应用容器引擎，让开发者可以打包他们�
 另外，Docker 是面向应用的，其终极目标是构建 PAAS 平台，而现有虚拟机主要目的是提供一个灵活的计算资源池，是面向架构的，其终极目标是构建一个 IAAS 平台，所以它不能替代传统虚拟化解决方案。目前在容器可管理性方面，对于方便运维，提供 UI 来管理监控各个 containers的功能还不足，还都是第三方实现如 DockerUI、Dockland、Shipyard 等。
 
 ## docker 组成部分
-![make_docker](http://czero000.github.io/images/docker/make_docker.png)
+![make_docker](http://ofc9x1ccn.bkt.clouddn.com/docker/make_docker.png)
 Docker 使用客户端-服务器 (client-server) 架构模式。Docker 客户端会与 Docker 守护进程进行通信。Docker 守护进程会处理复杂繁重的任务，例如建立、运行、发布你的Docker 容器。Docker 客户端和守护进程可以运行在同一个系统上，当然你也可以使用 Docker 客户端去连接一个远程的 Docker 守护进程。Docker 客户端和守护进程之间通过socket或者 RESTful API 进行通信。
 
 ### images 镜像
@@ -176,6 +175,8 @@ docker检查是否存在ubuntu镜像，如果本地不存在ubuntu镜像，则do
 连接log的标准输入、输出、错误，以使你直到你的应用是否正常运行
 
 # 安装 Docker
+
+Docker可以运行在Ubuntu16.04 LTS 和 CentOS7.x上，可能会和其他的二进制 EL7 兼容工作，但是 Docker 官方并没有去做测试。
 
 ## 准备
 先决条件：

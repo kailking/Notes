@@ -32,4 +32,4 @@ base:
     - ssh
 ```
 
-![nodegroup](https://czero000.github.io/images/saltstack/nodegroup.png)
+![nodegroup](http://ofc9x1ccn.bkt.clouddn.com/saltstack/nodegroup.png)
